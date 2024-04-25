@@ -1,0 +1,80 @@
+{
+    "data": {
+        "read": {
+            "distribuidora": "celpe",
+            "dias": 31,
+            "mes_ref": "2024-04-01 03:00:00+00:00",
+            "cliente": "EVERALDO FERREIRA DE LUCENA FILHO PX A IGREJA UNIVERSAL",
+            "contrato": "509196036",
+            "subgrupo": "B1",
+            "modalidade": "CONVENCIONAL",
+            "tipo_contrato": "CT",
+            "band": "VERDE",
+            "impost": {
+                "pis": 0.0079,
+                "icms": 0.205,
+                "cofins": 0.0363
+            },
+            "leitura": {
+                "cons": {
+                    "np": 0,
+                    "inter": 0,
+                    "fp": 377
+                },
+                "ger": 0
+            },
+            "tarifas": {
+                "consumo_tusd_np": {
+                    "s_impost": 0,
+                    "c_impost": 0
+                },
+                "consumo_tusd_inter": {
+                    "s_impost": 0,
+                    "c_impost": 0
+                },
+                "consumo_tusd_fp": {
+                    "s_impost": 0.42538,
+                    "c_impost": 0.55981291
+                },
+                "consumo_te_np": {
+                    "s_impost": 0,
+                    "c_impost": 0
+                },
+                "consumo_te_inter": {
+                    "s_impost": 0,
+                    "c_impost": 0
+                },
+                "consumo_te_fp": {
+                    "s_impost": 0.42538,
+                    "c_impost": 0.55981291
+                }
+            },
+            "detalh_fat": {
+                "consumo_tusd": {
+                    "np": 0,
+                    "inter": 0,
+                    "fp": 211.04
+                },
+                "consumo_te": {
+                    "np": 0,
+                    "inter": 0,
+                    "fp": 211.04
+                },
+                "iluminacao_publica": 60.33,
+                "icms_cde": 1.82,
+                "multas": {
+                    "nf": 0,
+                    "cosip": 0,
+                    "parcelamentos": 0,
+                    "doacoes": 0.98
+                },
+                "valor_final_faturado": 442.4,
+                "imp_som_dim": 0
+            },
+            "outros": {
+                "aviso_de_corte": false,
+                "possui_debitos": false
+            }
+        }
+    }
+}
