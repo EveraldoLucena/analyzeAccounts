@@ -192,6 +192,10 @@ def A4azul_ML(document_data):
                         'np': demanda_med_np,
                         'fp': demanda_med_fp
                     },
+                    'demand_reatv':{
+                        'np': prod_demand_reativo_np['quantidade'],
+                        'fp': prod_demand_reativo_fp['quantidade']   
+                    },
                     'cons': {
                         'np': consumo_np,
                         'fp': consumo_fp
@@ -293,7 +297,7 @@ def A4azul_ML(document_data):
 
     # Convert the dictionary to a JSON string
     output = json.dumps(data, indent=4)
-
+    print(output)
     return output
 
                     

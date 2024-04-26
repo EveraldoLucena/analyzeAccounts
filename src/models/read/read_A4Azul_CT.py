@@ -181,20 +181,24 @@ def A4azul_CT(document_data):
                         'fp': prod_demand_ultrap_fp['quantidade']
                     },
                     'demand_Medida': {
-                        'np': demanda_med_np,
-                        'fp': demanda_med_fp
+                        'np': demanda_med_np * 1.025,
+                        'fp': demanda_med_fp * 1.025
+                    },
+                    'demand_reatv':{
+                        'np': prod_demand_reativo_np['quantidade'],
+                        'fp': prod_demand_reativo_fp['quantidade']   
                     },
                     'cons': {
-                        'np': consumo_np,
-                        'fp': consumo_fp
+                        'np': consumo_np * 1.025,
+                        'fp': consumo_fp * 1.025
                     },
                     'reat': {
-                        'np': reativo_np,
-                        'fp': reativo_fp
+                        'np': reativo_np * 1.025,
+                        'fp': reativo_fp * 1.025
                     },
                     'reat_exc': {
-                        'np': reat_exc_np,
-                        'fp': reat_exc_fp
+                        'np': reat_exc_np * 1.025,
+                        'fp': reat_exc_fp * 1.025
                     },
                 },
                 'tarifas': {
@@ -285,5 +289,5 @@ def A4azul_CT(document_data):
 
     # Convert the dictionary to a JSON string
     output = json.dumps(data, indent=4)
-
+    print(output)
     return output

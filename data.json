@@ -3,11 +3,11 @@
         "read": {
             "distribuidora": "celpe",
             "dias": 31,
-            "mes_ref": "2024-04-01 03:00:00+00:00",
-            "cliente": "EVERALDO FERREIRA DE LUCENA FILHO PX A IGREJA UNIVERSAL",
-            "contrato": "509196036",
-            "subgrupo": "B1",
-            "modalidade": "CONVENCIONAL",
+            "mes_ref": "2024-03-01 03:00:00+00:00",
+            "cliente": "RENOVETECH LTDA ME",
+            "contrato": "7029455907",
+            "subgrupo": "A4",
+            "modalidade": "VERDE",
             "tipo_contrato": "CT",
             "band": "VERDE",
             "impost": {
@@ -16,64 +16,116 @@
                 "cofins": 0.0363
             },
             "leitura": {
-                "cons": {
+                "demand_contr": {
                     "np": 0,
-                    "inter": 0,
-                    "fp": 377
+                    "fp": 100
                 },
-                "ger": 0
+                "demand_ultrap": {
+                    "np": 0,
+                    "fp": 25.36
+                },
+                "demand_Medida": {
+                    "np": 3.36,
+                    "fp": 122.3
+                },
+                "demand_reatv": {
+                    "np": 0,
+                    "fp": 30.18
+                },
+                "cons": {
+                    "np": 97.32,
+                    "fp": 15199.2
+                },
+                "reat": {
+                    "np": 14.38,
+                    "fp": 19404
+                },
+                "reat_exc": {
+                    "np": 1.46,
+                    "fp": 5280
+                }
             },
             "tarifas": {
-                "consumo_tusd_np": {
+                "demanda_np": {
                     "s_impost": 0,
                     "c_impost": 0
                 },
-                "consumo_tusd_inter": {
+                "demanda_fp": {
+                    "s_impost": 22.87,
+                    "c_impost": 30.09760995
+                },
+                "demanda_ultrapassada_np": {
                     "s_impost": 0,
                     "c_impost": 0
+                },
+                "demanda_ultrapassada_fp": {
+                    "s_impost": 45.74,
+                    "c_impost": 60.19521991
+                },
+                "demanda_reativa": {
+                    "s_impost": 22.87,
+                    "c_impost": 30.09760995
+                },
+                "consumo_tusd_np": {
+                    "s_impost": 1.44865,
+                    "c_impost": 1.9064671
                 },
                 "consumo_tusd_fp": {
-                    "s_impost": 0.42538,
-                    "c_impost": 0.55981291
+                    "s_impost": 0.09365,
+                    "c_impost": 0.12324622
                 },
                 "consumo_te_np": {
-                    "s_impost": 0,
-                    "c_impost": 0
-                },
-                "consumo_te_inter": {
-                    "s_impost": 0,
-                    "c_impost": 0
+                    "s_impost": 0.53199,
+                    "c_impost": 0.70011488
                 },
                 "consumo_te_fp": {
-                    "s_impost": 0.42538,
-                    "c_impost": 0.55981291
+                    "s_impost": 0.32094,
+                    "c_impost": 0.42236672
+                },
+                "reativo_exc_np": {
+                    "s_impost": 0.33909,
+                    "c_impost": 0.44625266
                 }
             },
             "detalh_fat": {
-                "consumo_tusd": {
+                "demanda_reativa": {
                     "np": 0,
-                    "inter": 0,
-                    "fp": 211.04
+                    "fp": 908.34
+                },
+                "demanda": {
+                    "np": 0,
+                    "fp": 3773.03
+                },
+                "consumo_tusd": {
+                    "np": 190.17,
+                    "fp": 1920.07
                 },
                 "consumo_te": {
-                    "np": 0,
-                    "inter": 0,
-                    "fp": 211.04
+                    "np": 69.83,
+                    "fp": 6580.12
                 },
-                "iluminacao_publica": 60.33,
-                "icms_cde": 1.82,
+                "reativo_exc": {
+                    "np": 0.66,
+                    "fp": 2415.11
+                },
+                "iluminacao_publica": 74.38,
+                "icms_cde": 57.09,
                 "multas": {
-                    "nf": 0,
+                    "nf": 367.71,
                     "cosip": 0,
                     "parcelamentos": 0,
-                    "doacoes": 0.98
+                    "doacoes": 0
                 },
-                "valor_final_faturado": 442.4,
+                "valor_final_faturado": 17883.06,
+                "desc": 0,
+                "ajuste_desconto_demand_np": 0,
+                "ajuste_desconto_demand_fp": 0,
+                "ajuste_desconto_cons": 0,
                 "imp_som_dim": 0
             },
             "outros": {
-                "aviso_de_corte": false,
-                "possui_debitos": false
+                "aviso_de_corte": "false",
+                "possui_debitos": true
             }
         }
     }

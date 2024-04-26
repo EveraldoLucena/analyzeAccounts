@@ -48,7 +48,7 @@ def fat_analyze(dados):
         'doacoes': doacoes,
         'total': total,
         'aviso_corte': aviso_corte,
-        'debito': debito
+        'debito': debito,
     }
     output_json = json.dumps(output, indent=4)
     return output_json

@@ -179,6 +179,10 @@ def A4Verde_ML(document_data):
                         'np': demanda_med_np,
                         'fp': demanda_med_fp
                     },
+                    'demand_reatv':{
+                        'np': 0,
+                        'fp': prod_demand_reativo['quantidade']   
+                    },
                     'cons': {
                         'np': consumo_np,
                         'fp': consumo_fp
@@ -264,10 +268,10 @@ def A4Verde_ML(document_data):
                         'doacoes': prod_doacao['valor_total']
                     },
                     'valor_final_faturado': total_fat,
-                    'desc': 0,
+                    'desc': desc,
                     'ajuste_desconto_demand_np': 0,
-                    'ajuste_desconto_demand_fp': 0,
-                    'ajuste_desconto_cons': 0,
+                    'ajuste_desconto_demand_fp': ajuste_demand['valor_total'],
+                    'ajuste_desconto_cons': ajuste_cons['valor_total'],
                     'imp_som_dim': prod_imp_som_dim['valor_total']
                 },
                 'outros': {

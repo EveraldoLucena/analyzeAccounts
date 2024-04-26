@@ -20,17 +20,19 @@ def main(request):
         arquivo_id = document_data.get('arquivoId')
         processo_id = document_data.get('processoId')
         fatura_id = document_data['data']['dados']['fatura_id']
-        subgrupo = document_data['data']['dados']['unidade_consumidora']['subgrupo']
-        modalidade_tarifaria = document_data['data']['dados']['unidade_consumidora']['modalidade_tarifaria']
-        tipo_contrato = document_data['data']['dados']['unidade_consumidora']['tipo_contrato']
-        print(f'Arquivo ID: {arquivo_id}, Processo ID: {processo_id}, Fatura ID: {fatura_id}')
-        client  = Cliente(subgrupo, modalidade_tarifaria,tipo_contrato, document_data, request)
-        response = client.process_request()
-        dados = action_type(response)
-        print(dados)
-        
-        return dados
     except Exception as e:
         print(f'Error: {e}')
         return 'ERROR'
+    
+    subgrupo = document_data['data']['dados']['unidade_consumidora']['subgrupo']
+    modalidade_tarifaria = document_data['data']['dados']['unidade_consumidora']['modalidade_tarifaria']
+    tipo_contrato = document_data['data']['dados']['unidade_consumidora']['tipo_contrato']
+    print(f'Arquivo ID: {arquivo_id}, Processo ID: {processo_id}, Fatura ID: {fatura_id}')
+    client  = Cliente(subgrupo, modalidade_tarifaria,tipo_contrato, document_data, request)
+    response = client.process_request()
+    dados = action_type(response)
+    print(dados)
+        
+    return dados
+    
     
