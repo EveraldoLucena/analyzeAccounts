@@ -18,13 +18,24 @@ def B3Branc_CT(document_data):
     total_fat = document_data['data']['dados']['fatura']['total_fatura']
 
     # Função Genérica - Leituras
-    def func_leitura(document_data, position):
-        leitura = document_data['data']['dados']['fatura']['leitura']['medidores'][0]['leituras'][position]
-        return leitura.get("valor_leitura", 0)
+    def func_leitura(document_data, target_description):
+        leituras = document_data['data']['dados']['fatura']['leitura']['medidores'][0]['leituras']
+        for leitura in leituras:
+            if leitura["posto"] == target_description:
+                return {
+                    "valor_leitura": leitura.get("valor_leitura", 0),
+                    "valor_anterior": leitura.get("valor_anterior", 0),
+                    "valor_atual": leitura.get("valor_atual", 0)
+                }
+        return {
+            "valor_leitura": 0,
+            "valor_anterior": 0,
+            "valor_atual": 0
+        }
 
-    consumo_np = func_leitura(document_data, 0)
-    consumo_fp = func_leitura(document_data, 1)
-    consumo_inter = func_leitura(document_data, 2)
+    consumo_np = func_leitura(document_data, "PONTA")
+    consumo_fp = func_leitura(document_data,"FORA PONTA")
+    consumo_inter = func_leitura(document_data,"INTERMEDIARIO")
 
     # Função Genérica - Produtos
     def func_produto(document_data, target_description):
@@ -63,59 +74,49 @@ def B3Branc_CT(document_data):
     prod_parc = func_produto(document_data, "Parcelamentos")
     prod_imp_som_dim = func_produto(
         document_data, "Importe a Somar ou Diminuir (C/Imposto)")
+    prod_deb_servicos = func_produto(
+        document_data, "Débitos de Serviços Cobráveis pela Distribuidora")
     try:
         aviso_corte = document_data['data']['dados']['outros']['aviso_corte']
     except:
         aviso_corte = 'false'
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("INFORMAÇÕES GERAIS:")
     print("Distribuidora:", distribuidora)
     print(f'Dias: {dias}, Mês de Referência: {mes_ref}')
-    print(f'Cliente: {nome}, Contrato: {contrato}, Subgrupo: {
-          subgrupo}, Modalidade: {modalidade_tarifaria}, Tipo: {tipo_contrato}')
+    print(f'Cliente: {nome}, Contrato: {contrato}, Subgrupo: {subgrupo}, Modalidade: {modalidade_tarifaria}, Tipo: {tipo_contrato}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("DETALHAMENTO DA LEITURA:")
-    print(f'Consumo Ativo NP: {consumo_np}, Consumo Ativo INTER: {
-          consumo_inter}, Consumo Ativo FP: {consumo_fp}')
+    print(f'Consumo Ativo NP: {consumo_np}, Consumo Ativo INTER: {consumo_inter}, Consumo Ativo FP: {consumo_fp}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("TARIFAS, BANDEIRA E IMPOSTOS:")
     print(f'Bandeira Tarifária: {bandeira}')
     print(f'PIS: {pis}, COFINS: {cofins}, ICMS: {icms}')
-    print(f'Tarifa Consumo TUSD NP S/Impost: {prod_cons_TUSD_np['tarifa_sem_impostos']
-                                              }, Tarifa Consumo TUSD NP C/Impost: {prod_cons_TUSD_np['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TUSD INTER S/Impost: {prod_cons_TUSD_inter['tarifa_sem_impostos']
-                                                 }, Tarifa Consumo TUSD INTER C/Impost: {prod_cons_TUSD_inter['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TUSD FP S/Impost: {prod_cons_TUSD_fp['tarifa_sem_impostos']
-                                              }, Tarifa Consumo TUSD FP C/Impost: {prod_cons_TUSD_fp['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TE NP S/Impost: {prod_cons_TE_np['tarifa_sem_impostos']
-                                            }, Tarifa Consumo TE NP C/Impost: {prod_cons_TE_np['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TE INTER S/Impost: {prod_cons_TE_inter['tarifa_sem_impostos']
-                                               }, Tarifa Consumo TE INTER C/Impost: {prod_cons_TE_inter['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TE FP S/Impost: {prod_cons_TE_fp['tarifa_sem_impostos']
-                                            }, Tarifa Consumo TE FP C/Impost: {prod_cons_TE_fp['tarifa_com_impostos']}')
+    print(f'Tarifa Consumo TUSD NP S/Impost: {prod_cons_TUSD_np["tarifa_sem_impostos"]}, Tarifa Consumo TUSD NP C/Impost: {prod_cons_TUSD_np["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TUSD INTER S/Impost: {prod_cons_TUSD_inter["tarifa_sem_impostos"]}, Tarifa Consumo TUSD INTER C/Impost: {prod_cons_TUSD_inter["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TUSD FP S/Impost: {prod_cons_TUSD_fp["tarifa_sem_impostos"]}, Tarifa Consumo TUSD FP C/Impost: {prod_cons_TUSD_fp["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TE NP S/Impost: {prod_cons_TE_np["tarifa_sem_impostos"]}, Tarifa Consumo TE NP C/Impost: {prod_cons_TE_np["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TE INTER S/Impost: {prod_cons_TE_inter["tarifa_sem_impostos"]}, Tarifa Consumo TE INTER C/Impost: {prod_cons_TE_inter["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TE FP S/Impost: {prod_cons_TE_fp["tarifa_sem_impostos"]}, Tarifa Consumo TE FP C/Impost: {prod_cons_TE_fp["tarifa_com_impostos"]}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("DETALHAMENTO DO FATURAMENTO:")
-    print(f'Consumo TUSD NP: {prod_cons_TUSD_np['valor_total']}, Consumo TE NP: {
-          prod_cons_TE_np['valor_total']}')
-    print(f'Consumo TUSD INTER: {prod_cons_TUSD_inter['valor_total']}, Consumo TE INTER: {
-          prod_cons_TE_inter['valor_total']}')
-    print(f'Consumo TUSD FP: {prod_cons_TUSD_fp['valor_total']}, Consumo TE FP: {
-          prod_cons_TE_fp['valor_total']}')
-    print(f'Iluminação Pública: {prod_ilum_pub['valor_total']}')
-    print(f'ICMS CDE: {
-          prod_icms_CDE['valor_total']}, Imp.Som/Dim.: {prod_imp_som_dim['valor_total']}')
-    print(f'Multas NF: {prod_multasNF['valor_total']}, Multas COSIP: {prod_multasCOSIP['valor_total']}, Parcelamentos: {
-          prod_parc['valor_total']}, Doações: {prod_doacao['valor_total']}')
+    print(f'Consumo TUSD NP: {prod_cons_TUSD_np["valor_total"]}, Consumo TE NP: {prod_cons_TE_np["valor_total"]}')
+    print(f'Consumo TUSD INTER: {prod_cons_TUSD_inter["valor_total"]}, Consumo TE INTER: {prod_cons_TE_inter["valor_total"]}')
+    print(f'Consumo TUSD FP: {prod_cons_TUSD_fp["valor_total"]}, Consumo TE FP: {prod_cons_TE_fp["valor_total"]}')
+    print(f'Iluminação Pública: {prod_ilum_pub["valor_total"]}')
+    print(f'ICMS CDE: {prod_icms_CDE["valor_total"]}, Imp.Som/Dim.: {prod_imp_som_dim["valor_total"]}')
+    print(f'Multas NF: {prod_multasNF["valor_total"]}, Multas COSIP: {prod_multasCOSIP["valor_total"]}, Parcelamentos: {prod_parc["valor_total"]}, Doações: {prod_doacao["valor_total"]}')
     print(f'Valor Final Faturado: {total_fat}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("OUTROS:")
     print(f'Aviso de Corte: {aviso_corte}')
     print(f'Possui Débitos: {debitos}')
+
 
     data = {
         'data': {
@@ -136,9 +137,22 @@ def B3Branc_CT(document_data):
                 },
                 'leitura': {
                     'cons': {
-                        'np': consumo_np,
-                        'inter': consumo_inter,
-                        'fp': consumo_fp
+                        'np': consumo_np['valor_leitura'],
+                        'inter': consumo_inter['valor_leitura'],
+                        'fp': consumo_fp['valor_leitura'],
+                        'leitura_ant_np': consumo_np['valor_anterior'],
+                        'leitura_atual_np': consumo_np['valor_atual'],
+                        'leitura_ant_inter': consumo_inter['valor_anterior'],
+                        'leitura_atual_inter': consumo_inter['valor_atual'],
+                        'leitura_ant_fp': consumo_fp['valor_anterior'],
+                        'leitura_atual_fp': consumo_fp['valor_atual'],
+                    },
+                    'reativo': {
+                        'np': 0,
+                        'inter': 0,
+                        'fp': 0,
+                        'leitura_ant': 0,
+                        'leitura_atual': 0,
                     },
                     'ger': 0,
                 },
@@ -188,7 +202,8 @@ def B3Branc_CT(document_data):
                         'doacoes': prod_doacao['valor_total']
                     },
                     'valor_final_faturado': total_fat,
-                    'imp_som_dim': prod_imp_som_dim['valor_total']
+                    'imp_som_dim': prod_imp_som_dim['valor_total'],
+                    'deb_servicos': prod_deb_servicos['valor_total']
                 },
                 'outros': {
                     'aviso_de_corte': aviso_corte,

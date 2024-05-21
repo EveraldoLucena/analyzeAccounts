@@ -1,22 +1,29 @@
 import json
 import pandas
 
-def flag(input):
+def flag(input): 
     data = json.loads(input)
-    data['aviso_corte'] = str(data['aviso_corte'])
-    data['debito'] = str(data['debito'])
+    data['aviso_corte'] = data['aviso_corte']
+    data['debito'] = data['debito']
 
     flag_color = 'green'
-    if (data['aviso_corte'] == 'True' or data['debito'] == 'True' or
+    if (data['aviso_corte'] == 'true' or data['debito'] == 'true' or
         data['consumo_error'] == 'true' or data['faturamento_error'] == 'true'):
         flag_color = 'red'
     elif data['multa'] == 'true':
         flag_color = 'yellow'
 
-    additional_fields = {
-        'flag': flag_color
+    print(f'Flag Color: {flag_color}')
+    
+    analyze_account = {
+        'consumo_error': data['consumo_error'],
+        'faturamento_error': data['faturamento_error'],
+        'multa': data['multa'],
+        'aviso_corte': data['aviso_corte'],
+        'debito': data['debito'],
+        'flag_account': flag_color     
     }
-    data.update(additional_fields)
-    output = json.dumps(data, indent=4)
-    print('Flag Analyze: OK')
-    return output
+    
+    analyze_account = json.dumps(analyze_account, indent=4)
+    print(analyze_account)
+    return analyze_account

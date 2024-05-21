@@ -21,6 +21,7 @@ def fat_analyze(dados):
     ajuste_desconto_demand_fp = dados['detalh_fat']['ajuste_desconto_demand_fp']
     ajuste_desconto_cons = dados['detalh_fat']['ajuste_desconto_cons']
     imp_som_dim = dados['detalh_fat']['imp_som_dim']
+    deb_servicos = dados['detalh_fat']['deb_servicos']
     
     value_demand_np = demand_med['np'] * taf['demanda_np']['c_impost']
     value_demand_fp = demand_med['fp'] * taf['demanda_fp']['c_impost']
@@ -38,8 +39,18 @@ def fat_analyze(dados):
     parc = multas['parcelamentos']
     doacoes = multas['doacoes']
     total = value_demand_np + value_demand_fp + value_demand_utrap_np + value_demand_utrap_fp + value_demand_reatv_np + value_demand_reatv_fp + value_TUSD_np + value_TUSD_fp + value_TE_np + value_TE_fp + value_reat_exc + multas_nf + multas_cosip + parc + \
-        doacoes + cde + publ_light + imp_som_dim + ajuste_desconto_demand_np + ajuste_desconto_demand_fp + ajuste_desconto_cons
+        doacoes + cde + publ_light + imp_som_dim + ajuste_desconto_demand_np + ajuste_desconto_demand_fp + ajuste_desconto_cons + deb_servicos
 
+    if aviso_corte == "True":
+        corte = True
+    else:
+        corte = False
+        
+    if debito == "True":
+        debitos = True
+    else:
+        debitos = False
+        
     output = {
         'demand_contr': demand_contr,
         'demand': demand_med,
@@ -73,9 +84,10 @@ def fat_analyze(dados):
         'multas_cosip': multas_cosip,
         'parc': parc,
         'doacoes': doacoes,
+        'deb_servicos': deb_servicos,
         'total': total,
-        'aviso_corte': aviso_corte,
-        'debito': debito,
+        'aviso_corte': corte,
+        'debito': debitos,
     }
     output_json = json.dumps(output, indent=4)
     return output_json
@@ -83,19 +95,19 @@ def fat_analyze(dados):
 def analyse_CT(input):
     data = json.loads(input)
     if data['cons']['np'] == data['cons']['fp'] or data['cons']['fp'] == 0:
-        cons_error = 'true'
+        cons_error = True
     else:
-        cons_error = 'false'
+        cons_error = False
 
     if data['total'] != data['total_fat'] and data['total_fat'] > 1.05 * data['total']:
-        fat_error = 'true'
+        fat_error = True
     else:
-        fat_error = 'false'
+        fat_error = False
 
     if data['multas_nf'] != 0 or data['multas_cosip'] != 0 or data['parc'] != 0 or data['value_demand_utrap_np'] != 0 or data['value_demand_utrap_fp'] != 0 or data['value_demand_reatv_np'] != 0 or data['value_demand_reatv_fp'] != 0 or data['value_reat_exc'] != 0:
-        multa = 'true'
+        multa = True
     else:
-        multa = 'false'
+        multa = False
 
     additional_fields = {
         'consumo_error': cons_error,
@@ -110,19 +122,19 @@ def analyse_CT(input):
 def analyse_ML(input):
     data = json.loads(input)
     if data['cons']['np'] == data['cons']['fp'] or data['cons']['fp'] == 0:
-        cons_error = 'true'
+        cons_error = True
     else:
-        cons_error = 'false'
+        cons_error = False
 
     if data['total'] != data['total_fat'] and data['total_fat'] > 1.05 * data['total'] or data['value_TE_fp'] != 0 or data['value_TE_np'] != 0 or data['desc'] == 0 or data['ajuste_desconto_demand_fp'] == 0 or data['ajuste_desconto_cons'] == 0:
-        fat_error = 'true'
+        fat_error = True
     else:
-        fat_error = 'false'
+        fat_error = False
 
     if data['multas_nf'] != 0 or data['multas_cosip'] != 0 or data['parc'] != 0 or data['value_demand_utrap_np'] != 0 or data['value_demand_utrap_fp'] != 0 or data['value_demand_reatv_np'] != 0 or data['value_demand_reatv_fp'] != 0 or data['value_reat_exc'] > 0.05 * data['total_fat']:
-        multa = 'true'
+        multa = True
     else:
-        multa = 'false'
+        multa = False
 
     additional_fields = {
         'consumo_error': cons_error,

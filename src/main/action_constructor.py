@@ -1,8 +1,9 @@
 from src.controllers.readDados import getDados
 from src.controllers.analyzeDados import getAnalyze
-from src.controllers.analyzeflag import flag
+from src.controllers.getHistoricAnalyze import getHistoricAnalyze
+from src.controllers.update import updateDocument
 
-def action_type(cliente_req):
+def action_type(cliente_req, cod_inst, document_id):
     action = cliente_req['action']
     match action:
         case 'read':
@@ -10,6 +11,8 @@ def action_type(cliente_req):
             return result_read
         case 'analyze':
             result_read = getDados(cliente_req)
-            result_analyze = getAnalyze(result_read)
-            result = flag(result_analyze)
-            return result
+            result_analyze, result_account = getAnalyze(result_read)
+            result_historic = getHistoricAnalyze(result_analyze, cod_inst, document_id)
+            updateDocument(document_id, result_account, result_historic)
+            
+            return 

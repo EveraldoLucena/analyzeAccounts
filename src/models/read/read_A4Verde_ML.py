@@ -79,75 +79,60 @@ def A4Verde_ML(document_data):
         document_data, "Ajuste Desconto TUSD Demanda kW")
     ajuste_cons = func_produto(
         document_data, "Ajuste Desconto TUSD Consumo kWh")
+    prod_deb_servicos = func_produto(
+        document_data, "Débitos de Serviços Cobráveis pela Distribuidora")
     try:
         aviso_corte = document_data['data']['dados']['outros']['aviso_corte']
     except:
         aviso_corte = 'false'
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("INFORMAÇÕES GERAIS:")
     print("Distribuidora:", distribuidora)
     print(f'Dias: {dias}, Mês de Referência: {mes_ref}')
-    print(f'Cliente: {nome}, Contrato: {contrato}, Subgrupo: {
-          subgrupo}, Modalidade: {modalidade_tarifaria}, Tipo: {tipo_contrato}')
+    print(f'Cliente: {nome}, Contrato: {contrato}, Subgrupo: {subgrupo}, Modalidade: {modalidade_tarifaria}, Tipo: {tipo_contrato}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("DETALHAMENTO DA LEITURA:")
-    print(f'Demanda Contratada NP: {
-          demanda_contrat}')
-    print(f'Demanda Ultrap.: {prod_demand_ultrap['quantidade']}')
-    print(f'Demanda Medida NP: {
-          demanda_med_np}, Demanda Medida FP: {demanda_med_fp}')
+    print(f'Demanda Contratada NP: {demanda_contrat}')
+    print(f'Demanda Ultrap.: {prod_demand_ultrap["quantidade"]}')
+    print(f'Demanda Medida NP: {demanda_med_np}, Demanda Medida FP: {demanda_med_fp}')
     print(f'Consumo NP: {consumo_np}, Consumo FP: {consumo_fp}')
     print(f'Reativo NP: {reativo_np}, Reativo FP: {reativo_fp}')
-    print(f'Reativo Excedente NP: {
-          reat_exc_np}, Reativo Excedente FP: {reat_exc_fp}')
+    print(f'Reativo Excedente NP: {reat_exc_np}, Reativo Excedente FP: {reat_exc_fp}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("TARIFAS, BANDEIRA E IMPOSTOS:")
     print(f'Bandeira Tarifária: {bandeira}')
     print(f'PIS: {pis}, COFINS: {cofins}, ICMS: {icms}')
-    print(f'Tarifa Demanda S/Impost: {prod_dem['tarifa_sem_impostos']
-                                      }, Tarifa Demanda C/Impost: {prod_dem['tarifa_com_impostos']}')
-    print(f'Tarifa Demanda Ultrap. S/Impost: {prod_demand_ultrap['tarifa_sem_impostos']
-                                              }, Tarifa Demanda Ultrap. C/Impost: {prod_demand_ultrap['tarifa_com_impostos']}')
-    print(f'Tarifa Demanda Reativa S/Impost: {prod_demand_reativo['tarifa_sem_impostos']
-                                              }, Tarifa Demanda Reativa C/Impost: {prod_demand_reativo['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TUSD NP S/Impost: {prod_cons_TUSD_np['tarifa_sem_impostos']
-                                              }, Tarifa Consumo TUSD NP C/Impost: {prod_cons_TUSD_np['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TUSD FP S/Impost: {prod_cons_TUSD_fp['tarifa_sem_impostos']
-                                              }, Tarifa Consumo TUSD FP C/Impost: {prod_cons_TUSD_fp['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TE NP S/Impost: {prod_cons_TE_np['tarifa_sem_impostos']
-                                            }, Tarifa Consumo TE NP C/Impost: {prod_cons_TE_np['tarifa_com_impostos']}')
-    print(f'Tarifa Consumo TE FP S/Impost: {prod_cons_TE_fp['tarifa_sem_impostos']
-                                            }, Tarifa Consumo TE FP C/Impost: {prod_cons_TE_fp['tarifa_com_impostos']}')
-    print(f'Tarifa Reativo EXC S/Impost: {prod_reativo_exc_np['tarifa_sem_impostos']
-                                          }, Tarifa Reativo EXC C/Impost: {prod_reativo_exc_np['tarifa_com_impostos']}')
+    print(f'Tarifa Demanda S/Impost: {prod_dem["tarifa_sem_impostos"]}, Tarifa Demanda C/Impost: {prod_dem["tarifa_com_impostos"]}')
+    print(f'Tarifa Demanda Ultrap. S/Impost: {prod_demand_ultrap["tarifa_sem_impostos"]}, Tarifa Demanda Ultrap. C/Impost: {prod_demand_ultrap["tarifa_com_impostos"]}')
+    print(f'Tarifa Demanda Reativa S/Impost: {prod_demand_reativo["tarifa_sem_impostos"]}, Tarifa Demanda Reativa C/Impost: {prod_demand_reativo["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TUSD NP S/Impost: {prod_cons_TUSD_np["tarifa_sem_impostos"]}, Tarifa Consumo TUSD NP C/Impost: {prod_cons_TUSD_np["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TUSD FP S/Impost: {prod_cons_TUSD_fp["tarifa_sem_impostos"]}, Tarifa Consumo TUSD FP C/Impost: {prod_cons_TUSD_fp["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TE NP S/Impost: {prod_cons_TE_np["tarifa_sem_impostos"]}, Tarifa Consumo TE NP C/Impost: {prod_cons_TE_np["tarifa_com_impostos"]}')
+    print(f'Tarifa Consumo TE FP S/Impost: {prod_cons_TE_fp["tarifa_sem_impostos"]}, Tarifa Consumo TE FP C/Impost: {prod_cons_TE_fp["tarifa_com_impostos"]}')
+    print(f'Tarifa Reativo EXC S/Impost: {prod_reativo_exc_np["tarifa_sem_impostos"]}, Tarifa Reativo EXC C/Impost: {prod_reativo_exc_np["tarifa_com_impostos"]}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("DETALHAMENTO DO FATURAMENTO:")
-    print(f'Demanda Reativa: {prod_demand_reativo['valor_total']}')
-    print(f'Demanda: {prod_dem['valor_total']}')
-    print(f'Consumo TUSD NP: {prod_cons_TUSD_np['valor_total']}, Consumo TUSD FP: {
-          prod_cons_TUSD_fp['valor_total']}')
-    print(f'Consumo TE NP: {prod_cons_TE_np['valor_total']}, Consumo TE FP: {
-          prod_cons_TE_fp['valor_total']}')
-    print(f'Reativo EXC NP: {prod_reativo_exc_np['valor_total']}, Reativo EXC FP: {
-          prod_reativo_exc_fp['valor_total']}')
-    print(f'Iluminação Pública: {prod_ilum_pub['valor_total']}')
-    print(f'ICMS CDE: {
-          prod_icms_CDE['valor_total']}, Imp.Som/Dim.: {prod_imp_som_dim['valor_total']}')
+    print(f'Demanda Reativa: {prod_demand_reativo["valor_total"]}')
+    print(f'Demanda: {prod_dem["valor_total"]}')
+    print(f'Consumo TUSD NP: {prod_cons_TUSD_np["valor_total"]}, Consumo TUSD FP: {prod_cons_TUSD_fp["valor_total"]}')
+    print(f'Consumo TE NP: {prod_cons_TE_np["valor_total"]}, Consumo TE FP: {prod_cons_TE_fp["valor_total"]}')
+    print(f'Reativo EXC NP: {prod_reativo_exc_np["valor_total"]}, Reativo EXC FP: {prod_reativo_exc_fp["valor_total"]}')
+    print(f'Iluminação Pública: {prod_ilum_pub["valor_total"]}')
+    print(f'ICMS CDE: {prod_icms_CDE["valor_total"]}, Imp.Som/Dim.: {prod_imp_som_dim["valor_total"]}')
     print(f'Desconto Fio: {desc}')
-    print(f'Ajuste Desconto Demand. NP: {ajuste_demand['valor_total']}, Ajuste Desconto cons.: {
-          ajuste_cons['valor_total']}, Imp.Som/Dim.: {prod_imp_som_dim['valor_total']}')
-    print(f'Multas NF: {prod_multasNF['valor_total']}, Multas COSIP: {prod_multasCOSIP['valor_total']}, Parcelamentos: {
-          prod_parc['valor_total']}, Doações: {prod_doacao['valor_total']}')
+    print(f'Ajuste Desconto Demand. NP: {ajuste_demand["valor_total"]}, Ajuste Desconto cons.: {ajuste_cons["valor_total"]}, Imp.Som/Dim.: {prod_imp_som_dim["valor_total"]}')
+    print(f'Multas NF: {prod_multasNF["valor_total"]}, Multas COSIP: {prod_multasCOSIP["valor_total"]}, Parcelamentos: {prod_parc["valor_total"]}, Doações: {prod_doacao["valor_total"]}')
     print(f'Valor Final Faturado: {total_fat}')
 
-    print('\n ------------------------------------------------------------------------')
+    print(' ------------------------------------------------------------------------')
     print("OUTROS:")
     print(f'Aviso de Corte: {aviso_corte}')
     print(f'Possui Débitos: {debitos}')
+
 
     data = {
         'data': {
@@ -272,7 +257,8 @@ def A4Verde_ML(document_data):
                     'ajuste_desconto_demand_np': 0,
                     'ajuste_desconto_demand_fp': ajuste_demand['valor_total'],
                     'ajuste_desconto_cons': ajuste_cons['valor_total'],
-                    'imp_som_dim': prod_imp_som_dim['valor_total']
+                    'imp_som_dim': prod_imp_som_dim['valor_total'],
+                    'deb_servicos': prod_deb_servicos['valor_total']
                 },
                 'outros': {
                     'aviso_de_corte': aviso_corte,

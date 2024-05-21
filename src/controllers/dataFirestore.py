@@ -2,6 +2,8 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
 from dotenv import load_dotenv
+import warnings
+warnings.filterwarnings("ignore")
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -37,3 +39,29 @@ class FirestoreDatabase:
             return doc.to_dict()
         else:
             return None
+        
+    def get_documents_by_installation_code(self, installation_code):
+        docs = self.db.collection(self.collection_name).stream()
+        results = []
+
+        for doc in docs:
+            data = doc.to_dict()
+            # Verificar se o caminho data/dados/unidade_consumidora/instalacao existe e corresponde ao código
+            if (
+                'data' in data and 
+                'dados' in data['data'] and 
+                'unidade_consumidora' in data['data']['dados'] and 
+                'instalacao' in data['data']['dados']['unidade_consumidora']
+            ):
+                if data['data']['dados']['unidade_consumidora']['instalacao'] == installation_code:
+                    results.append(doc.id)
+        
+        return results
+    
+    def update_document_analyzes(self, doc_id, result):
+        doc_ref = self.db.collection(self.collection_name).document(doc_id)
+        try:
+            doc_ref.set(result, merge=True)
+            return f"Document {doc_id} updated successfully."
+        except:
+            return "ERRO ao salvar análise"
