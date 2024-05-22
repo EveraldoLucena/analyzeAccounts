@@ -7,10 +7,10 @@ def flag(input):
     data['debito'] = data['debito']
 
     flag_color = 'green'
-    if (data['aviso_corte'] == 'true' or data['debito'] == 'true' or
-        data['consumo_error'] == 'true' or data['faturamento_error'] == 'true'):
+    if (data['aviso_corte'] == True or data['debito'] == True or
+        data['consumo_error'] == True or data['faturamento_error'] == True):
         flag_color = 'red'
-    elif data['multa'] == 'true':
+    elif data['multa'] == True:
         flag_color = 'yellow'
 
     print(f'Flag Color: {flag_color}')

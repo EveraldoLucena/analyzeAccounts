@@ -12,12 +12,16 @@ def A4azul_CT(document_data):
     tipo_contrato = document_data["data"]["dados"]["unidade_consumidora"][
         "tipo_contrato"
     ]
-    demanda_contrat_np = document_data["data"]["dados"]["fatura"][
-        "demandas_contratadas"
-    ][0]["valor"]
-    demanda_contrat_fp = document_data["data"]["dados"]["fatura"][
-        "demandas_contratadas"
-    ][1]["valor"]
+    try:
+        demanda_contrat_np = document_data["data"]["dados"]["fatura"][
+            "demandas_contratadas"
+        ][0]["valor"]
+        demanda_contrat_fp = document_data["data"]["dados"]["fatura"][
+            "demandas_contratadas"
+        ][1]["valor"]
+    except:
+        demanda_contrat_np = 0
+        demanda_contrat_fp = 0
     dias = document_data["data"]["dados"]["fatura"]["leitura"]["periodo_dias"]
     mes_ref = document_data["data"]["dados"]["fatura"]["mes_referencia"]
     bandeira = document_data["data"]["dados"]["fatura"]["bandeiras_tarifarias"][0][

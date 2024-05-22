@@ -1,8 +1,11 @@
 from src.models.analyze.baixa import analyze_baixa
 from src.models.analyze.alta import analyze_alta
-from src.models.analyze.baixaHistoric import baixa_Historic
-from src.models.analyze.baixaHistoric import leitura_baixa
-from src.models.analyze.altaHistoric import leitura_alta
+from src.models.analyze.altaHistoric_12m import alta_Historic_12m
+from src.models.analyze.baixaHistoric_12m import baixa_Historic_12m
+from src.models.analyze.baixaHistoric_12m import leitura_baixa_energetico
+from src.models.analyze.altaHistoric_12m import leitura_alta_energetico
+from src.models.analyze.baixaHistoric_12m import leitura_baixa_custo
+from src.models.analyze.altaHistoric_12m import leitura_alta_custo
 from src.controllers.analyzeflag import flag
 import json
 
@@ -18,22 +21,24 @@ def getAnalyze(result_read):
         case 'A':
             output_analyze = analyze_alta(result_read)
             result_account = flag(output_analyze)
-            return output_analyze,  
+            return output_analyze, result_account
 
-def getHistoric(json_output, subgrupo, modalidade_tarifaria, tipo_contrato):
+def getHistoric(json_energetico, json_custo, subgrupo, modalidade_tarifaria, tipo_contrato):
     match subgrupo[0]:
         case 'B':
-            analyze_historic = baixa_Historic(json_output, modalidade_tarifaria, tipo_contrato)
-            return analyze_historic
+            output_analyse_12m, output_custo_12m = baixa_Historic_12m(json_energetico, json_custo, modalidade_tarifaria, tipo_contrato)
+            return output_analyse_12m, output_custo_12m
         case 'A':
-            analyze_historic = leitura_alta(json_output, modalidade_tarifaria, tipo_contrato)
-            return analyze_historic
+            output_analyse_12m, output_custo_12m = alta_Historic_12m(json_energetico, json_custo, modalidade_tarifaria, tipo_contrato)
+            return output_analyse_12m, output_custo_12m
         
 def getleituraHistoric(result_read):
     match result_read['data']['read']['subgrupo'][0]:
         case 'B':
-            output_analyze = leitura_baixa(result_read)
-            return output_analyze
+            output_analyze = leitura_baixa_energetico(result_read)
+            output_custo = leitura_alta_custo(result_read)
+            return output_analyze, output_custo
         case 'A':
-            output_analyze = leitura_alta(result_read)
-            return output_analyze
+            output_analyze = leitura_alta_energetico(result_read)
+            output_custo = leitura_alta_custo(result_read)
+            return output_analyze, output_custo

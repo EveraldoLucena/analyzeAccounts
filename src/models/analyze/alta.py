@@ -8,6 +8,7 @@ def fat_analyze(dados):
     demand_reatv_np = dados['leitura']['demand_reatv']['fp']
     demand_reatv_fp = dados['leitura']['demand_reatv']['np']
     cons = dados['leitura']['cons']
+    reativo = dados["leitura"]["reat"]
     reat_exc = dados['leitura']['reat_exc']
     taf = dados['tarifas']
     total_fat = dados['detalh_fat']['valor_final_faturado']
@@ -59,6 +60,8 @@ def fat_analyze(dados):
         'demand_utrap_np': value_demand_utrap_np,
         'demand_reatv_fp': demand_reatv_fp,
         'cons': cons,
+        'reativo': reativo,
+        'reativo_exc': reat_exc,
         'taf': taf,
         'total_fat': total_fat,
         'multas': multas,
@@ -104,7 +107,7 @@ def analyse_CT(input):
     else:
         fat_error = False
 
-    if data['multas_nf'] != 0 or data['multas_cosip'] != 0 or data['parc'] != 0 or data['value_demand_utrap_np'] != 0 or data['value_demand_utrap_fp'] != 0 or data['value_demand_reatv_np'] != 0 or data['value_demand_reatv_fp'] != 0 or data['value_reat_exc'] != 0:
+    if data['multas_nf'] != 0 or data['multas_cosip'] != 0 or data['parc'] != 0 or data['value_demand_utrap_np'] != 0 or data['value_demand_utrap_fp'] != 0 or data['value_demand_reatv_np'] != 0 or data['value_demand_reatv_fp'] != 0 or data['value_reat_exc'] > 0.05 * data['total_fat']:
         multa = True
     else:
         multa = False

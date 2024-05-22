@@ -12,7 +12,7 @@ def action_type(cliente_req, cod_inst, document_id):
         case 'analyze':
             result_read = getDados(cliente_req)
             result_analyze, result_account = getAnalyze(result_read)
-            result_historic = getHistoricAnalyze(result_analyze, cod_inst, document_id)
-            updateDocument(document_id, result_account, result_historic)
+            output_analyse_12m, output_custo_12m = getHistoricAnalyze(result_analyze, cod_inst, document_id)
+            updateDocument(document_id, result_account, output_analyse_12m, output_custo_12m)
             
             return 

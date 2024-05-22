@@ -8,7 +8,10 @@ def A4Verde_CT(document_data):
     subgrupo = document_data['data']['dados']['unidade_consumidora']['subgrupo']
     modalidade_tarifaria = document_data['data']['dados']['unidade_consumidora']['modalidade_tarifaria']
     tipo_contrato = document_data['data']['dados']['unidade_consumidora']['tipo_contrato']
-    demanda_contrat = document_data['data']['dados']['fatura']['demandas_contratadas'][0]['valor']
+    try:
+        demanda_contrat = document_data['data']['dados']['fatura']['demandas_contratadas'][0]['valor']
+    except:
+        demanda_contrat = 0
     dias = document_data['data']['dados']['fatura']['leitura']['periodo_dias']
     mes_ref = document_data['data']['dados']['fatura']['mes_referencia']
     bandeira = document_data['data']['dados']['fatura']['bandeiras_tarifarias'][0]['nome']
