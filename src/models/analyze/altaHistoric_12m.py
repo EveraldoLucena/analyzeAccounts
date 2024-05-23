@@ -114,8 +114,12 @@ def media_historica_energetico(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_json = json.dumps(variation_dict)
+    
+    mean_values = mean_values.fillna(0)
+    mean_values_dict = mean_values.to_dict()
+    mean_values_json = json.dumps(mean_values_dict)
 
-    return variation_json
+    return variation_json, mean_values_json
 
 def CT_energetico(data_input):
     print("\nHistorico Convencional Energetico:")
@@ -274,8 +278,12 @@ def media_historica_custo(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_json = json.dumps(variation_dict)
+    
+    mean_values = mean_values.fillna(0)
+    mean_values_dict = mean_values.to_dict()
+    mean_values_custo_json = json.dumps(mean_values_dict)
 
-    return variation_json
+    return variation_json, mean_values_custo_json
 
 def CT_custo(data_input):
     print("\nHistorico Convencional Custo:")
@@ -328,18 +336,18 @@ def alta_Historic_12m(json_energetico, json_custo, modalidade_tarifaria, tipo_co
     print("Analise Historico de Alta:")
     historic_energetico = json.loads(json_energetico)
     historic_custo = json.loads(json_custo)
-    variation_json = media_historica_energetico(historic_energetico)
-    variation_custo_json = media_historica_custo(historic_custo)
+    variation_json, mean_values_json = media_historica_energetico(historic_energetico)
+    variation_custo_json, mean_values_custo_json = media_historica_custo(historic_custo)
 
     match tipo_contrato:
         case "CT":
             print("CT")
             output_analyse = CT_energetico(variation_json)
             output_custo = CT_custo(variation_custo_json)
-            return output_analyse, output_custo
+            return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
         case "ML":
             print("ML")
             output_analyse = ML_energetico(variation_json)
             output_custo = ML_custo(variation_custo_json)
-            return output_analyse, output_custo
+            return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
 

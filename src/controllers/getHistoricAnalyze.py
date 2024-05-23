@@ -71,10 +71,10 @@ def getHistoricAnalyze(result, cod_inst, document_id):
         print(json_energetico)
         print(json_custo)
 
-        output_analyse_12m, output_custo_12m = getHistoric(
+        output_analyse_12m, output_custo_12m, output_analyse_1m, output_custo_1m, mean_values_12m, mean_values_custo_12m, mean_values_1m, mean_values_custo_1m = getHistoric(
             json_energetico, json_custo, subgrupo, modalidade_tarifaria, tipo_contrato
         )
-        return output_analyse_12m, output_custo_12m
+        return output_analyse_12m, output_custo_12m, output_analyse_1m, output_custo_1m, mean_values_12m, mean_values_custo_12m, mean_values_1m, mean_values_custo_1m
     except Exception as error:
       print("An exception occurred:", error)
       return {}

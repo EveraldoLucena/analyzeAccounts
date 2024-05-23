@@ -65,7 +65,6 @@ class FirestoreDatabase:
         return results
 
     def update_eletric_analyzes(self, doc_id, result):
-        print("\nAnálise Elétrica: OK!")
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
@@ -76,7 +75,6 @@ class FirestoreDatabase:
             return f"Error updating document {doc_id}: {str(e)}"
     
     def update_cust_analyzes(self, doc_id, result):
-        print("\nAnálise Custo: OK!")
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
@@ -92,6 +90,26 @@ class FirestoreDatabase:
         try:
             # Envolve o resultado em um campo "Analyzes"
             update_data = {"Account Analyzer": result}
+            doc_ref.set(update_data, merge=True)
+            return f"Document {doc_id} updated successfully."
+        except Exception as e:
+            return f"Error updating document {doc_id}: {str(e)}"
+    
+    def update_means_12m(self, doc_id, result):
+        doc_ref = self.db.collection(self.collection_name).document(doc_id)
+        try:
+            # Envolve o resultado em um campo "Analyzes"
+            update_data = {"Average 12 months": result}
+            doc_ref.set(update_data, merge=True)
+            return f"Document {doc_id} updated successfully."
+        except Exception as e:
+            return f"Error updating document {doc_id}: {str(e)}"
+    
+    def update_last_month(self, doc_id, result):
+        doc_ref = self.db.collection(self.collection_name).document(doc_id)
+        try:
+            # Envolve o resultado em um campo "Analyzes"
+            update_data = {"Last Month": result}
             doc_ref.set(update_data, merge=True)
             return f"Document {doc_id} updated successfully."
         except Exception as e:
