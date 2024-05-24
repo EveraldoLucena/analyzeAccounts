@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-import numpy as np
+
 
 def leitura_alta_energetico(input):
     data_input = input["data"]["read"]
@@ -20,6 +20,7 @@ def leitura_alta_energetico(input):
 
     output_json = json.dumps(output)
     return output_json
+
 
 def media_historica_energetico(data_input):
     print("\nMédia Histórica Energetico:")
@@ -114,12 +115,13 @@ def media_historica_energetico(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_json = json.dumps(variation_dict)
-    
+
     mean_values = mean_values.fillna(0)
     mean_values_dict = mean_values.to_dict()
     mean_values_json = json.dumps(mean_values_dict)
 
     return variation_json, mean_values_json
+
 
 def CT_energetico(data_input):
     print("\nHistorico Convencional Energetico:")
@@ -154,6 +156,7 @@ def CT_energetico(data_input):
     print(output_historic)
     return output_historic
 
+
 def ML_energetico(data_input):
     print("Historico ML Energetico:")
     data = json.loads(data_input)
@@ -187,7 +190,6 @@ def ML_energetico(data_input):
     print(output_historic)
     return output_historic
 
-
     print("Historico GD")
     data = json.loads(data_input)
 
@@ -220,16 +222,16 @@ def ML_energetico(data_input):
     print(output_historic)
     return output_historic
 
+
 def leitura_alta_custo(input):
     data_input = input["data"]["read"]
     total = data_input["detalh_fat"]["valor_final_faturado"]
 
-    output = {
-        "valor_fat": total
-    }
+    output = {"valor_fat": total}
 
     output_fat_json = json.dumps(output)
     return output_fat_json
+
 
 def media_historica_custo(data_input):
     print("\nMédia Histórica Custo:")
@@ -263,9 +265,7 @@ def media_historica_custo(data_input):
     first_account = json.loads(data_input[0]["0"]["account"])
 
     # Extracting the relevant data for the first account
-    first_account_data = {
-        "valor_fat_12m": first_account.get("total_fat", 0)
-    }
+    first_account_data = {"valor_fat_12m": first_account.get("total_fat", 0)}
 
     # Creating a DataFrame for the first account data
     df_first_account = pd.DataFrame([first_account_data])
@@ -278,25 +278,22 @@ def media_historica_custo(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_json = json.dumps(variation_dict)
-    
+
     mean_values = mean_values.fillna(0)
     mean_values_dict = mean_values.to_dict()
     mean_values_custo_json = json.dumps(mean_values_dict)
 
     return variation_json, mean_values_custo_json
 
+
 def CT_custo(data_input):
     print("\nHistorico Convencional Custo:")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_12m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_12m"] <= 30:
         flag_historic = "yellow"
 
     else:
@@ -308,18 +305,15 @@ def CT_custo(data_input):
     print(output_historic)
     return output_historic
 
+
 def ML_custo(data_input):
     print("Historico ML Custo:")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_12m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_12m"] <= 30:
         flag_historic = "yellow"
 
     else:
@@ -344,10 +338,19 @@ def alta_Historic_12m(json_energetico, json_custo, modalidade_tarifaria, tipo_co
             print("CT")
             output_analyse = CT_energetico(variation_json)
             output_custo = CT_custo(variation_custo_json)
-            return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
+            return (
+                output_analyse,
+                output_custo,
+                mean_values_json,
+                mean_values_custo_json,
+            )
         case "ML":
             print("ML")
             output_analyse = ML_energetico(variation_json)
             output_custo = ML_custo(variation_custo_json)
-            return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
-
+            return (
+                output_analyse,
+                output_custo,
+                mean_values_json,
+                mean_values_custo_json,
+            )

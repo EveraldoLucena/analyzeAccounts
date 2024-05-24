@@ -70,47 +70,69 @@ class FirestoreDatabase:
             # Envolve o resultado em um campo "Analyzes"
             update_data = {"Electric Analyzer": result}
             doc_ref.set(update_data, merge=True)
+            print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
         except Exception as e:
+            print(f"\nError updating document {doc_id}: {str(e)}")
             return f"Error updating document {doc_id}: {str(e)}"
-    
+
     def update_cust_analyzes(self, doc_id, result):
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
             update_data = {"Cost Analyzer": result}
             doc_ref.set(update_data, merge=True)
+            print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
         except Exception as e:
+            print(f"\nError updating document {doc_id}: {str(e)}")
             return f"Error updating document {doc_id}: {str(e)}"
-        
+
     def update_analyzes_account(self, doc_id, result):
-        print("\nAnálise da Conta: OK!")
+        print("\nAnálise da Conta:")
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
             update_data = {"Account Analyzer": result}
             doc_ref.set(update_data, merge=True)
+            print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
         except Exception as e:
+            print(f"\nError updating document {doc_id}: {str(e)}")
             return f"Error updating document {doc_id}: {str(e)}"
-    
+
     def update_means_12m(self, doc_id, result):
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
             update_data = {"Average 12 months": result}
             doc_ref.set(update_data, merge=True)
+            print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
         except Exception as e:
+            print(f"\nError updating document {doc_id}: {str(e)}")
             return f"Error updating document {doc_id}: {str(e)}"
-    
+
     def update_last_month(self, doc_id, result):
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
             update_data = {"Last Month": result}
             doc_ref.set(update_data, merge=True)
+            print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
         except Exception as e:
+            print(f"\nError updating document {doc_id}: {str(e)}")
+            return f"Error updating document {doc_id}: {str(e)}"
+
+    def update_moly(self, doc_id, result):
+        doc_ref = self.db.collection(self.collection_name).document(doc_id)
+        try:
+            # Envolve o resultado em um campo "Analyzes"
+            update_data = {"Month of Last Year": result}
+            doc_ref.set(update_data, merge=True)
+            print(f"\nDocument {doc_id} updated successfully")
+            return f"Document {doc_id} updated successfully."
+        except Exception as e:
+            print(f"\nError updating document {doc_id}: {str(e)}")
             return f"Error updating document {doc_id}: {str(e)}"

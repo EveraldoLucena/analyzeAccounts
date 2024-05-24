@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-import numpy as np
+
 
 def media_historica_energetico(data_input):
     print("\nMédia Histórica Mês Anterior Energetico:")
@@ -33,7 +33,7 @@ def media_historica_energetico(data_input):
 
     # Creating a DataFrame for the first account data
     df_account = pd.DataFrame([account_data])
-    
+
     # Calculating the means
     mean_values = df_account.mean()
 
@@ -77,12 +77,13 @@ def media_historica_energetico(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_json = json.dumps(variation_dict)
-    
+
     mean_values = mean_values.fillna(0)
     mean_values_dict = mean_values.to_dict()
     mean_values_json = json.dumps(mean_values_dict)
 
     return variation_json, mean_values_json
+
 
 def Convencional_energetico(data_input):
     print("\nHistorico Convencional Mês Anterior Energetico")
@@ -102,6 +103,7 @@ def Convencional_energetico(data_input):
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
     return output_historic
+
 
 def Branca_energetico(data_input):
     print("Historico Branca Mês Anterior Energetico")
@@ -136,6 +138,7 @@ def Branca_energetico(data_input):
     print(output_historic)
     return output_historic
 
+
 def GD_energetico(data_input):
     print("Historico GD Mês Anterior Energético:")
     data = json.loads(data_input)
@@ -161,12 +164,11 @@ def GD_energetico(data_input):
         or (-75 <= data["geracao_1m"] <= -50)
     ):
         flag_historic = "yellow"
-    
+
     elif (
         (data["consumo_fp_1m"] <= -25)
         or (15 <= data["consumo_inter_1m"] <= -25)
         or (15 <= data["consumo_np_1m"] <= -25)
-
     ):
         flag_historic = "yellow"
 
@@ -179,6 +181,7 @@ def GD_energetico(data_input):
     print(output_historic)
     return output_historic
 
+
 def media_historica_custo(data_input):
     print("\nMédia Histórica Mês Anterior Custo:")
 
@@ -186,14 +189,12 @@ def media_historica_custo(data_input):
     second_account = json.loads(data_input[1]["1"]["account"])
 
     # Extracting the relevant data for the first account
-    account_data = {
-        "valor_fat_1m": second_account.get("valor_fat", 0)
-    }
+    account_data = {"valor_fat_1m": second_account.get("valor_fat", 0)}
 
     # Creating a DataFrame for the first account data
     df_account = pd.DataFrame([account_data])
-    
-     # Calculating the means
+
+    # Calculating the means
     mean_values = df_account.mean()
 
     # Display the mean values
@@ -203,9 +204,7 @@ def media_historica_custo(data_input):
     first_account = json.loads(data_input[0]["0"]["account"])
 
     # Extracting the relevant data for the first account
-    first_account_data = {
-        "valor_fat_1m": first_account.get("total_fat", 0)
-    }
+    first_account_data = {"valor_fat_1m": first_account.get("total_fat", 0)}
 
     # Creating a DataFrame for the first account data
     df_first_account = pd.DataFrame([first_account_data])
@@ -218,25 +217,22 @@ def media_historica_custo(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_custo_json = json.dumps(variation_dict)
-    
+
     mean_values = mean_values.fillna(0)
     mean_values_dict = mean_values.to_dict()
     mean_values_custo_json = json.dumps(mean_values_dict)
 
     return variation_custo_json, mean_values_custo_json
 
+
 def Convencional_custo(data_input):
     print("\nHistorico Convencional Mês Anterior Custo:")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_1m"] > 30
-    ):
+    if data["valor_fat_1m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_1m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_1m"] <= 30:
         flag_historic = "yellow"
 
     else:
@@ -248,47 +244,41 @@ def Convencional_custo(data_input):
     print(output_historic)
     return output_historic
 
+
 def Branca_custo(data_input):
     print("Historico Branca Mês Anterior Custo:")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_1m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_1m"] <= 30:
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_12m": flag_historic}
+    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
     return output_historic
 
+
 def GD_custo(data_input):
     print("Historico GD Mês Anterior Custo:")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_1m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_1m"] <= 30:
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_12m": flag_historic}
+    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -308,13 +298,28 @@ def baixa_Historic_1m(json_energetico, json_custo, modalidade_tarifaria, tipo_co
                 case "CT":
                     output_analyse = Convencional_energetico(variation_json)
                     output_custo = Convencional_custo(variation_custo_json)
-                    return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
+                    return (
+                        output_analyse,
+                        output_custo,
+                        mean_values_json,
+                        mean_values_custo_json,
+                    )
                 case "GD":
                     output_analyse = GD_energetico(variation_json)
                     output_custo = GD_custo(variation_custo_json)
-                    return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
+                    return (
+                        output_analyse,
+                        output_custo,
+                        mean_values_json,
+                        mean_values_custo_json,
+                    )
 
         case "BRANCA":
             output_analyse = Branca_energetico(variation_json)
             output_custo = Branca_custo(variation_custo_json)
-            return output_analyse, output_custo, mean_values_json, mean_values_custo_json  
+            return (
+                output_analyse,
+                output_custo,
+                mean_values_json,
+                mean_values_custo_json,
+            )
