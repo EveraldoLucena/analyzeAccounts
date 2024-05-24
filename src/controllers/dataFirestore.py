@@ -68,7 +68,7 @@ class FirestoreDatabase:
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
-            update_data = {"Electric Analyzer": result}
+            update_data = {"analise_eletrica": result}
             doc_ref.set(update_data, merge=True)
             print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
@@ -80,7 +80,7 @@ class FirestoreDatabase:
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
-            update_data = {"Cost Analyzer": result}
+            update_data = {"analise_custo": result}
             doc_ref.set(update_data, merge=True)
             print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
@@ -93,7 +93,7 @@ class FirestoreDatabase:
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
-            update_data = {"Account Analyzer": result}
+            update_data = {"analise_conta": result}
             doc_ref.set(update_data, merge=True)
             print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
@@ -105,7 +105,7 @@ class FirestoreDatabase:
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
-            update_data = {"Average 12 months": result}
+            update_data = {"media_12meses": result}
             doc_ref.set(update_data, merge=True)
             print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
@@ -117,7 +117,7 @@ class FirestoreDatabase:
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
-            update_data = {"Last Month": result}
+            update_data = {"ultimo_mes": result}
             doc_ref.set(update_data, merge=True)
             print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
@@ -129,7 +129,7 @@ class FirestoreDatabase:
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"
-            update_data = {"Month of Last Year": result}
+            update_data = {"mes_ano_anterior": result}
             doc_ref.set(update_data, merge=True)
             print(f"\nDocument {doc_id} updated successfully")
             return f"Document {doc_id} updated successfully."
