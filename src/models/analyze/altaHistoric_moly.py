@@ -9,11 +9,11 @@ def media_historica_energetico(data_input):
     yearago_account = json.loads(data_input[12]["12"]["account"])
 
     account_data = {
-        "demanda_np_moly": yearago_account.get("demand", {}).get("np", 0),
+        "demanda_p_moly": yearago_account.get("demand", {}).get("np", 0),
         "demanda_fp_moly": yearago_account.get("demand", {}).get("fp", 0),
-        "consumo_np_moly": yearago_account.get("cons", {}).get("np", 0),
+        "consumo_p_moly": yearago_account.get("cons", {}).get("np", 0),
         "consumo_fp_moly": yearago_account.get("cons", {}).get("fp", 0),
-        "reativo_np_moly": (
+        "reativo_p_moly": (
             yearago_account.get("reativo", {}).get("np", 0)
             if "reativo" in yearago_account
             else 0
@@ -23,7 +23,7 @@ def media_historica_energetico(data_input):
             if "reativo" in yearago_account
             else 0
         ),
-        "reativo_exc_np_moly": (
+        "reativo_exc_p_moly": (
             yearago_account.get("reativo_exc", {}).get("np", 0)
             if "reativo" in yearago_account
             else 0
@@ -50,11 +50,11 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     first_account_data = {
-        "demanda_np_moly": first_account.get("demand", {}).get("np", 0),
+        "demanda_p_moly": first_account.get("demand", {}).get("np", 0),
         "demanda_fp_moly": first_account.get("demand", {}).get("fp", 0),
-        "consumo_np_moly": first_account.get("cons", {}).get("np", 0),
+        "consumo_p_moly": first_account.get("cons", {}).get("np", 0),
         "consumo_fp_moly": first_account.get("cons", {}).get("fp", 0),
-        "reativo_np_moly": (
+        "reativo_p_moly": (
             first_account.get("reativo", {}).get("np", 0)
             if "reativo" in first_account
             else 0
@@ -64,7 +64,7 @@ def media_historica_energetico(data_input):
             if "reativo" in first_account
             else 0
         ),
-        "reativo_exc_np_moly": (
+        "reativo_exc_p_moly": (
             first_account.get("reativo_exc", {}).get("np", 0)
             if "reativo" in first_account
             else 0
@@ -104,18 +104,18 @@ def CT_energetico(data_input):
         data["demanda_np_moly"] > 30
         or data["demanda_fp_moly"] > 30
         or data["consumo_fp_moly"] > 30
-        or data["consumo_np_moly"] > 30
-        or data["reativo_exc_np_moly"] > 30
+        or data["consumo_p_moly"] > 30
+        or data["reativo_exc_p_moly"] > 30
         or data["reativo_exc_fp_moly"] > 30
     ):
         flag_historic = "red"
 
     elif (
         (15 <= data["consumo_fp_moly"] <= 30)
-        or (15 <= data["demanda_np_moly"] <= 30)
+        or (15 <= data["demanda_p_moly"] <= 30)
         or (15 <= data["consumo_fp_moly"] <= 30)
-        or (15 <= data["consumo_np_moly"] <= 30)
-        or (15 <= data["reativo_exc_np_moly"] <= 30)
+        or (15 <= data["consumo_p_moly"] <= 30)
+        or (15 <= data["reativo_exc_p_moly"] <= 30)
         or (15 <= data["reativo_exc_fp_moly"] <= 30)
     ):
         flag_historic = "yellow"
@@ -138,18 +138,18 @@ def ML_energetico(data_input):
         data["demanda_np_moly"] > 30
         or data["demanda_fp_moly"] > 30
         or data["consumo_fp_moly"] > 30
-        or data["consumo_np_moly"] > 30
-        or data["reativo_exc_np_moly"] > 30
+        or data["consumo_p_moly"] > 30
+        or data["reativo_exc_p_moly"] > 30
         or data["reativo_exc_fp_moly"] > 30
     ):
         flag_historic = "red"
 
     elif (
         (15 <= data["consumo_fp_moly"] <= 30)
-        or (15 <= data["demanda_np_moly"] <= 30)
+        or (15 <= data["demanda_p_moly"] <= 30)
         or (15 <= data["consumo_fp_moly"] <= 30)
-        or (15 <= data["consumo_np_moly"] <= 30)
-        or (15 <= data["reativo_exc_np_moly"] <= 30)
+        or (15 <= data["consumo_p_moly"] <= 30)
+        or (15 <= data["reativo_exc_p_moly"] <= 30)
         or (15 <= data["reativo_exc_fp_moly"] <= 30)
     ):
         flag_historic = "yellow"
@@ -285,26 +285,26 @@ def alta_Historic_MOLY(
     except:
         print("Sem Conta do Mês do Ano Anterior")
         output_analyse = {
-            "demanda_np_moly": 0.0,
+            "demanda_p_moly": 0.0,
             "demanda_fp_moly": 0.0,
-            "consumo_np_moly": 0.0,
+            "consumo_p_moly": 0.0,
             "consumo_fp_moly": 0.0,
-            "reativo_np_moly": 0.0,
+            "reativo_p_moly": 0.0,
             "reativo_fp_moly": 0.0,
-            "reativo_exc_np_moly": 0.0,
+            "reativo_exc_p_moly": 0.0,
             "reativo_exc_fp_moly": 0.0,
             "geracao_moly": 0.0,
             "flag_Historic_moly": "green",
         }
         output_custo = {"valor_fat_moly": 0.0, "flag_Hist_Custo_moly": "green"}
         mean_values_json = {
-            "demanda_np_moly": 0.0,
+            "demanda_p_moly": 0.0,
             "demanda_fp_moly": 0.0,
-            "consumo_np_moly": 0.0,
+            "consumo_p_moly": 0.0,
             "consumo_fp_moly": 0.0,
-            "reativo_np_moly": 0.0,
+            "reativo_p_moly": 0.0,
             "reativo_fp_moly": 0.0,
-            "reativo_exc_np_moly": 0.0,
+            "reativo_exc_p_moly": 0.0,
             "reativo_exc_fp_moly": 0.0,
             "geracao_moly": 0.0,
         }

@@ -10,15 +10,15 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     account_data = {
-        "consumo_np_moly": yearago_account.get("consumo", {}).get("np", 0),
-        "consumo_inter_moly": yearago_account.get("consumo", {}).get("inter", 0),
+        "consumo_p_moly": yearago_account.get("consumo", {}).get("np", 0),
+        "consumo_int_moly": yearago_account.get("consumo", {}).get("inter", 0),
         "consumo_fp_moly": yearago_account.get("consumo", {}).get("fp", 0),
-        "reativo_np_moly": (
+        "reativo_p_moly": (
             yearago_account.get("reativo", {}).get("np", 0)
             if "reativo" in yearago_account
             else 0
         ),
-        "reativo_inter_moly": (
+        "reativo_int_moly": (
             yearago_account.get("reativo", {}).get("inter", 0)
             if "reativo" in yearago_account
             else 0
@@ -44,15 +44,15 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     first_account_data = {
-        "consumo_np_moly": first_account.get("cons", {}).get("np", 0),
-        "consumo_inter_moly": first_account.get("cons", {}).get("inter", 0),
+        "consumo_p_moly": first_account.get("cons", {}).get("np", 0),
+        "consumo_int_moly": first_account.get("cons", {}).get("inter", 0),
         "consumo_fp_moly": first_account.get("cons", {}).get("fp", 0),
-        "reativo_np_moly": (
+        "reativo_p_moly": (
             first_account.get("reativo", {}).get("np", 0)
             if "reativo" in first_account
             else 0
         ),
-        "reativo_inter_moly": (
+        "reativo_int_moly": (
             first_account.get("reativo", {}).get("inter", 0)
             if "reativo" in first_account
             else 0
@@ -112,20 +112,20 @@ def Branca_energetico(data_input):
     if (
         data["consumo_fp_moly"] > 30
         or data["reativo_fp_moly"] > 30
-        or data["consumo_inter_moly"] > 30
-        or data["reativo_inter_moly"] > 30
-        or data["consumo_np_moly"] > 30
-        or data["reativo_np_moly"] > 30
+        or data["consumo_int_moly"] > 30
+        or data["reativo_int_moly"] > 30
+        or data["consumo_p_moly"] > 30
+        or data["reativo_p_moly"] > 30
     ):
         flag_historic = "red"
 
     elif (
         (15 <= data["consumo_fp_moly"] <= 30)
         or (15 <= data["reativo_fp_moly"] <= 30)
-        or (15 <= data["consumo_inter_moly"] <= 30)
-        or (15 <= data["reativo_inter_moly"] <= 30)
-        or (15 <= data["consumo_np_moly"] <= 30)
-        or (15 <= data["reativo_fp_moly"] <= 30)
+        or (15 <= data["consumo_int_moly"] <= 30)
+        or (15 <= data["reativo_int_moly"] <= 30)
+        or (15 <= data["consumo_p_moly"] <= 30)
+        or (15 <= data["reativo_p_moly"] <= 30)
     ):
         flag_historic = "yellow"
 
@@ -146,10 +146,10 @@ def GD_energetico(data_input):
     if (
         data["consumo_fp_moly"] > 30
         or data["reativo_fp_moly"] > 30
-        or data["consumo_inter_moly"] > 30
-        or data["reativo_inter_moly"] > 30
-        or data["consumo_np_moly"] > 30
-        or data["reativo_np_moly"] > 30
+        or data["consumo_int_moly"] > 30
+        or data["reativo_int_moly"] > 30
+        or data["consumo_p_moly"] > 30
+        or data["reativo_p_moly"] > 30
         or data["geracao_moly"] < -50
     ):
         flag_historic = "red"
@@ -157,18 +157,18 @@ def GD_energetico(data_input):
     elif (
         (15 <= data["consumo_fp_moly"] <= 30)
         or (15 <= data["reativo_fp_moly"] <= 30)
-        or (15 <= data["consumo_inter_moly"] <= 30)
-        or (15 <= data["reativo_inter_moly"] <= 30)
-        or (15 <= data["consumo_np_moly"] <= 30)
-        or (15 <= data["reativo_np_moly"] <= 30)
+        or (15 <= data["consumo_int_moly"] <= 30)
+        or (15 <= data["reativo_int_moly"] <= 30)
+        or (15 <= data["consumo_p_moly"] <= 30)
+        or (15 <= data["reativo_p_moly"] <= 30)
         or (-75 <= data["geracao_moly"] <= -50)
     ):
         flag_historic = "yellow"
 
     elif (
         (data["consumo_fp_moly"] <= -25)
-        or (15 <= data["consumo_inter_moly"] <= -25)
-        or (15 <= data["consumo_np_moly"] <= -25)
+        or (15 <= data["consumo_int_moly"] <= -25)
+        or (15 <= data["consumo_p_moly"] <= -25)
     ):
         flag_historic = "yellow"
 
@@ -333,22 +333,22 @@ def baixa_Historic_MOLY(
     except:
         print("Sem Conta do Mês do Ano Anterior")
         output_analyse = {
-            "consumo_np_moly": 0.0,
-            "consumo_inter_moly": 0.0,
+            "consumo_p_moly": 0.0,
+            "consumo_int_moly": 0.0,
             "consumo_fp_moly": 0.0,
-            "reativo_np_moly": 0.0,
-            "reativo_inter_moly": 0.0,
+            "reativo_p_moly": 0.0,
+            "reativo_int_moly": 0.0,
             "reativo_fp_moly": 0.0,
             "geracao_moly": 0.0,
             "flag_Historic_moly": "green",
         }
         output_custo = {"valor_fat_moly": 0.0, "flag_Hist_Custo_moly": "green"}
         mean_values_json = {
-            "consumo_np_moly": 0.0,
-            "consumo_inter_moly": 0.0,
+            "consumo_p_moly": 0.0,
+            "consumo_int_moly": 0.0,
             "consumo_fp_moly": 0.0,
-            "reativo_np_moly": 0.0,
-            "reativo_inter_moly": 0.0,
+            "reativo_p_moly": 0.0,
+            "reativo_int_moly": 0.0,
             "reativo_fp_moly": 0.0,
             "geracao_moly": 0.0,
         }

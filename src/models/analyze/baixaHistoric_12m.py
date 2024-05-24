@@ -25,12 +25,12 @@ def media_historica_energetico(data_input):
     df = pd.DataFrame(
         [
             {
-                "consumo_np_12m": (
+                "consumo_p_12m": (
                     item.get("cons", {}).get("np", 0)
                     if "cons" in item
                     else item.get("consumo", {}).get("np", 0)
                 ),
-                "consumo_inter_12m": (
+                "consumo_int_12m": (
                     item.get("cons", {}).get("inter", 0)
                     if "cons" in item
                     else item.get("consumo", {}).get("inter", 0)
@@ -40,8 +40,8 @@ def media_historica_energetico(data_input):
                     if "cons" in item
                     else item.get("consumo", {}).get("fp", 0)
                 ),
-                "reativo_np_12m": item.get("reativo", {}).get("np", 0),
-                "reativo_inter_12m": item.get("reativo", {}).get("inter", 0),
+                "reativo_p_12m": item.get("reativo", {}).get("np", 0),
+                "reativo_int_12m": item.get("reativo", {}).get("inter", 0),
                 "reativo_fp_12m": item.get("reativo", {}).get("fp", 0),
                 "geracao_12m": (
                     item.get("ger", 0) if "ger" in item else item.get("geracao", 0)
@@ -62,15 +62,15 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     first_account_data = {
-        "consumo_np_12m": first_account.get("cons", {}).get("np", 0),
-        "consumo_inter_12m": first_account.get("cons", {}).get("inter", 0),
+        "consumo_p_12m": first_account.get("cons", {}).get("np", 0),
+        "consumo_int_12m": first_account.get("cons", {}).get("inter", 0),
         "consumo_fp_12m": first_account.get("cons", {}).get("fp", 0),
-        "reativo_np_12m": (
+        "reativo_p_12m": (
             first_account.get("reativo", {}).get("np", 0)
             if "reativo" in first_account
             else 0
         ),
-        "reativo_inter_12m": (
+        "reativo_int_12m": (
             first_account.get("reativo", {}).get("inter", 0)
             if "reativo" in first_account
             else 0
@@ -127,20 +127,20 @@ def Branca_energetico(data_input):
     if (
         data["consumo_fp_12m"] > 30
         or data["reativo_fp_12m"] > 30
-        or data["consumo_inter_12m"] > 30
-        or data["reativo_inter_12m"] > 30
-        or data["consumo_np_12m"] > 30
-        or data["reativo_np_12m"] > 30
+        or data["consumo_int_12m"] > 30
+        or data["reativo_int_12m"] > 30
+        or data["consumo_p_12m"] > 30
+        or data["reativo_p_12m"] > 30
     ):
         flag_historic = "red"
 
     elif (
         (15 <= data["consumo_fp_12m"] <= 30)
         or (15 <= data["reativo_fp_12m"] <= 30)
-        or (15 <= data["consumo_inter_12m"] <= 30)
-        or (15 <= data["reativo_inter_12m"] <= 30)
-        or (15 <= data["consumo_np_12m"] <= 30)
-        or (15 <= data["reativo_fp_12m"] <= 30)
+        or (15 <= data["consumo_int_12m"] <= 30)
+        or (15 <= data["reativo_int_12m"] <= 30)
+        or (15 <= data["consumo_p_12m"] <= 30)
+        or (15 <= data["reativo_p_12m"] <= 30)
     ):
         flag_historic = "yellow"
 
@@ -160,10 +160,10 @@ def GD_energetico(data_input):
     if (
         data["consumo_fp_12m"] > 30
         or data["reativo_fp_12m"] > 30
-        or data["consumo_inter_12m"] > 30
-        or data["reativo_inter_12m"] > 30
-        or data["consumo_np_12m"] > 30
-        or data["reativo_np_12m"] > 30
+        or data["consumo_int_12m"] > 30
+        or data["reativo_int_12m"] > 30
+        or data["consumo_p_12m"] > 30
+        or data["reativo_p_12m"] > 30
         or data["geracao_12m"] < -50
     ):
         flag_historic = "red"
@@ -171,18 +171,18 @@ def GD_energetico(data_input):
     elif (
         (15 <= data["consumo_fp_12m"] <= 30)
         or (15 <= data["reativo_fp_12m"] <= 30)
-        or (15 <= data["consumo_inter_12m"] <= 30)
-        or (15 <= data["reativo_inter_12m"] <= 30)
-        or (15 <= data["consumo_np_12m"] <= 30)
-        or (15 <= data["reativo_np_12m"] <= 30)
+        or (15 <= data["consumo_int_12m"] <= 30)
+        or (15 <= data["reativo_int_12m"] <= 30)
+        or (15 <= data["consumo_p_12m"] <= 30)
+        or (15 <= data["reativo_p_12m"] <= 30)
         or (-75 <= data["geracao_12m"] <= -50)
     ):
         flag_historic = "yellow"
     
     elif (
         (data["consumo_fp_12m"] <= -25)
-        or (15 <= data["consumo_inter_12m"] <= -25)
-        or (15 <= data["consumo_np_12m"] <= -25)
+        or (15 <= data["consumo_int_12m"] <= -25)
+        or (15 <= data["consumo_p_12m"] <= -25)
 
     ):
         flag_historic = "yellow"
