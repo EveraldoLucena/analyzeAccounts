@@ -123,7 +123,7 @@ def CT_energetico(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Eletric_1m": flag_historic}
+    additional_fields = {"flag_hist_eletrica_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -157,7 +157,7 @@ def ML_energetico(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Eletric_1m": flag_historic}
+    additional_fields = {"flag_hist_eletrica_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -220,7 +220,7 @@ def CT_custo(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
+    additional_fields = {"flag_hist_custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -240,7 +240,7 @@ def ML_custo(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
+    additional_fields = {"flag_hist_custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)

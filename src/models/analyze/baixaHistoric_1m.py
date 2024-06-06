@@ -98,7 +98,7 @@ def Convencional_energetico(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Historic_1m": flag_historic}
+    additional_fields = {"flag_hist_eletrica_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -132,7 +132,7 @@ def Branca_energetico(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Historic_1m": flag_historic}
+    additional_fields = {"flag_hist_eletrica_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -175,7 +175,7 @@ def GD_energetico(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Historic_1m": flag_historic}
+    additional_fields = {"flag_hist_eletrica_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -238,7 +238,7 @@ def Convencional_custo(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
+    additional_fields = {"flag_hist_custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -258,7 +258,7 @@ def Branca_custo(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
+    additional_fields = {"flag_hist_custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -278,7 +278,7 @@ def GD_custo(data_input):
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_1m": flag_historic}
+    additional_fields = {"flag_hist_custo_1m": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)

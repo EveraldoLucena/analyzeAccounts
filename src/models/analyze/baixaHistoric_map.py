@@ -10,25 +10,25 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     account_data = {
-        "consumo_p_moly": yearago_account.get("consumo", {}).get("np", 0),
-        "consumo_int_moly": yearago_account.get("consumo", {}).get("inter", 0),
-        "consumo_fp_moly": yearago_account.get("consumo", {}).get("fp", 0),
-        "reativo_p_moly": (
+        "consumo_p_map": yearago_account.get("consumo", {}).get("np", 0),
+        "consumo_int_map": yearago_account.get("consumo", {}).get("inter", 0),
+        "consumo_fp_map": yearago_account.get("consumo", {}).get("fp", 0),
+        "reativo_p_map": (
             yearago_account.get("reativo", {}).get("np", 0)
             if "reativo" in yearago_account
             else 0
         ),
-        "reativo_int_moly": (
+        "reativo_int_map": (
             yearago_account.get("reativo", {}).get("inter", 0)
             if "reativo" in yearago_account
             else 0
         ),
-        "reativo_fp_moly": (
+        "reativo_fp_map": (
             yearago_account.get("reativo", {}).get("fp", 0)
             if "reativo" in yearago_account
             else 0
         ),
-        "geracao_moly": yearago_account.get("geracao", 0),
+        "geracao_map": yearago_account.get("geracao", 0),
     }
 
     # Creating a DataFrame for the first account data
@@ -44,25 +44,25 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     first_account_data = {
-        "consumo_p_moly": first_account.get("cons", {}).get("np", 0),
-        "consumo_int_moly": first_account.get("cons", {}).get("inter", 0),
-        "consumo_fp_moly": first_account.get("cons", {}).get("fp", 0),
-        "reativo_p_moly": (
+        "consumo_p_map": first_account.get("cons", {}).get("np", 0),
+        "consumo_int_map": first_account.get("cons", {}).get("inter", 0),
+        "consumo_fp_map": first_account.get("cons", {}).get("fp", 0),
+        "reativo_p_map": (
             first_account.get("reativo", {}).get("np", 0)
             if "reativo" in first_account
             else 0
         ),
-        "reativo_int_moly": (
+        "reativo_int_map": (
             first_account.get("reativo", {}).get("inter", 0)
             if "reativo" in first_account
             else 0
         ),
-        "reativo_fp_moly": (
+        "reativo_fp_map": (
             first_account.get("reativo", {}).get("fp", 0)
             if "reativo" in first_account
             else 0
         ),
-        "geracao_moly": first_account.get("ger", 0),
+        "geracao_map": first_account.get("ger", 0),
     }
 
     # Creating a DataFrame for the first account data
@@ -89,16 +89,16 @@ def Convencional_energetico(data_input):
     print("\nHistorico Convencional Mês do Ano Anterior Energetico")
     data = json.loads(data_input)
 
-    if data["consumo_fp_moly"] > 30 or data["reativo_fp_moly"] > 30:
+    if data["consumo_fp_map"] > 30 or data["reativo_fp_map"] > 30:
         flag_historic = "red"
 
-    elif (15 <= data["consumo_fp_moly"] <= 30) or (15 <= data["reativo_fp_moly"] <= 30):
+    elif (15 <= data["consumo_fp_map"] <= 30) or (15 <= data["reativo_fp_map"] <= 30):
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Historic_moly": flag_historic}
+    additional_fields = {"flag_hist_eletrica_map": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -110,29 +110,29 @@ def Branca_energetico(data_input):
     data = json.loads(data_input)
 
     if (
-        data["consumo_fp_moly"] > 30
-        or data["reativo_fp_moly"] > 30
-        or data["consumo_int_moly"] > 30
-        or data["reativo_int_moly"] > 30
-        or data["consumo_p_moly"] > 30
-        or data["reativo_p_moly"] > 30
+        data["consumo_fp_map"] > 30
+        or data["reativo_fp_map"] > 30
+        or data["consumo_int_map"] > 30
+        or data["reativo_int_map"] > 30
+        or data["consumo_p_map"] > 30
+        or data["reativo_p_map"] > 30
     ):
         flag_historic = "red"
 
     elif (
-        (15 <= data["consumo_fp_moly"] <= 30)
-        or (15 <= data["reativo_fp_moly"] <= 30)
-        or (15 <= data["consumo_int_moly"] <= 30)
-        or (15 <= data["reativo_int_moly"] <= 30)
-        or (15 <= data["consumo_p_moly"] <= 30)
-        or (15 <= data["reativo_p_moly"] <= 30)
+        (15 <= data["consumo_fp_map"] <= 30)
+        or (15 <= data["reativo_fp_map"] <= 30)
+        or (15 <= data["consumo_int_map"] <= 30)
+        or (15 <= data["reativo_int_map"] <= 30)
+        or (15 <= data["consumo_p_map"] <= 30)
+        or (15 <= data["reativo_p_map"] <= 30)
     ):
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Historic_moly": flag_historic}
+    additional_fields = {"flag_hist_eletrica_map": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -144,38 +144,38 @@ def GD_energetico(data_input):
     data = json.loads(data_input)
 
     if (
-        data["consumo_fp_moly"] > 30
-        or data["reativo_fp_moly"] > 30
-        or data["consumo_int_moly"] > 30
-        or data["reativo_int_moly"] > 30
-        or data["consumo_p_moly"] > 30
-        or data["reativo_p_moly"] > 30
-        or data["geracao_moly"] < -50
+        data["consumo_fp_map"] > 30
+        or data["reativo_fp_map"] > 30
+        or data["consumo_int_map"] > 30
+        or data["reativo_int_map"] > 30
+        or data["consumo_p_map"] > 30
+        or data["reativo_p_map"] > 30
+        or data["geracao_map"] < -50
     ):
         flag_historic = "red"
 
     elif (
-        (15 <= data["consumo_fp_moly"] <= 30)
-        or (15 <= data["reativo_fp_moly"] <= 30)
-        or (15 <= data["consumo_int_moly"] <= 30)
-        or (15 <= data["reativo_int_moly"] <= 30)
-        or (15 <= data["consumo_p_moly"] <= 30)
-        or (15 <= data["reativo_p_moly"] <= 30)
-        or (-75 <= data["geracao_moly"] <= -50)
+        (15 <= data["consumo_fp_map"] <= 30)
+        or (15 <= data["reativo_fp_map"] <= 30)
+        or (15 <= data["consumo_int_map"] <= 30)
+        or (15 <= data["reativo_int_map"] <= 30)
+        or (15 <= data["consumo_p_map"] <= 30)
+        or (15 <= data["reativo_p_map"] <= 30)
+        or (-75 <= data["geracao_map"] <= -50)
     ):
         flag_historic = "yellow"
 
     elif (
-        (data["consumo_fp_moly"] <= -25)
-        or (15 <= data["consumo_int_moly"] <= -25)
-        or (15 <= data["consumo_p_moly"] <= -25)
+        (data["consumo_fp_map"] <= -25)
+        or (15 <= data["consumo_int_map"] <= -25)
+        or (15 <= data["consumo_p_map"] <= -25)
     ):
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Historic_moly": flag_historic}
+    additional_fields = {"flag_hist_eletrica_map": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -189,7 +189,7 @@ def media_historica_custo(data_input):
     yearago_account = json.loads(data_input[12]["12"]["account"])
 
     # Extracting the relevant data for the first account
-    account_data = {"valor_fat_moly": yearago_account.get("valor_fat", 0)}
+    account_data = {"valor_fat_map": yearago_account.get("valor_fat", 0)}
 
     # Creating a DataFrame for the first account data
     df_account = pd.DataFrame([account_data])
@@ -203,7 +203,7 @@ def media_historica_custo(data_input):
     first_account = json.loads(data_input[0]["0"]["account"])
 
     # Extracting the relevant data for the first account
-    first_account_data = {"valor_fat_moly": first_account.get("total_fat", 0)}
+    first_account_data = {"valor_fat_map": first_account.get("total_fat", 0)}
 
     # Creating a DataFrame for the first account data
     df_first_account = pd.DataFrame([first_account_data])
@@ -229,16 +229,16 @@ def Convencional_custo(data_input):
     print("\nHistorico Convencional Mês do Ano Anterior Custo:")
     data = json.loads(data_input)
 
-    if data["valor_fat_moly"] > 30:
+    if data["valor_fat_map"] > 30:
         flag_historic = "red"
 
-    elif 15 <= data["valor_fat_moly"] <= 30:
+    elif 15 <= data["valor_fat_map"] <= 30:
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_moly": flag_historic}
+    additional_fields = {"flag_hist_custo_map": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -249,16 +249,16 @@ def Branca_custo(data_input):
     print("Historico Branca Mês do Ano Anterior Custo:")
     data = json.loads(data_input)
 
-    if data["valor_fat_moly"] > 30:
+    if data["valor_fat_map"] > 30:
         flag_historic = "red"
 
-    elif 15 <= data["valor_fat_moly"] <= 30:
+    elif 15 <= data["valor_fat_map"] <= 30:
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_moly": flag_historic}
+    additional_fields = {"flag_hist_custo_map": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
@@ -269,23 +269,23 @@ def GD_custo(data_input):
     print("Historico GD Mês do Ano Anterior Custo:")
     data = json.loads(data_input)
 
-    if data["valor_fat_moly"] > 30:
+    if data["valor_fat_map"] > 30:
         flag_historic = "red"
 
-    elif 15 <= data["valor_fat_moly"] <= 30:
+    elif 15 <= data["valor_fat_map"] <= 30:
         flag_historic = "yellow"
 
     else:
         flag_historic = "green"
 
-    additional_fields = {"flag_Hist_Custo_moly": flag_historic}
+    additional_fields = {"flag_hist_custo_map": flag_historic}
     data.update(additional_fields)
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
     return output_historic
 
 
-def baixa_Historic_MOLY(
+def baixa_Historic_map(
     json_energetico, json_custo, modalidade_tarifaria, tipo_contrato
 ):
     print("Analise Mês do Ano Anterior de Baixa:")
@@ -333,26 +333,26 @@ def baixa_Historic_MOLY(
     except:
         print("Sem Conta do Mês do Ano Anterior")
         output_analyse = {
-            "consumo_p_moly": 0.0,
-            "consumo_int_moly": 0.0,
-            "consumo_fp_moly": 0.0,
-            "reativo_p_moly": 0.0,
-            "reativo_int_moly": 0.0,
-            "reativo_fp_moly": 0.0,
-            "geracao_moly": 0.0,
-            "flag_Historic_moly": "green",
+            "consumo_p_map": 0.0,
+            "consumo_int_map": 0.0,
+            "consumo_fp_map": 0.0,
+            "reativo_p_map": 0.0,
+            "reativo_int_map": 0.0,
+            "reativo_fp_map": 0.0,
+            "geracao_map": 0.0,
+            "flag_hist_eletrica_map": "green",
         }
-        output_custo = {"valor_fat_moly": 0.0, "flag_Hist_Custo_moly": "green"}
+        output_custo = {"valor_fat_map": 0.0, "flag_hist_custo_map": "green"}
         mean_values_json = {
-            "consumo_p_moly": 0.0,
-            "consumo_int_moly": 0.0,
-            "consumo_fp_moly": 0.0,
-            "reativo_p_moly": 0.0,
-            "reativo_int_moly": 0.0,
-            "reativo_fp_moly": 0.0,
-            "geracao_moly": 0.0,
+            "consumo_p_map": 0.0,
+            "consumo_int_map": 0.0,
+            "consumo_fp_map": 0.0,
+            "reativo_p_map": 0.0,
+            "reativo_int_map": 0.0,
+            "reativo_fp_map": 0.0,
+            "geracao_map": 0.0,
         }
-        mean_values_custo_json = {"valor_fat_moly": 0.0}
+        mean_values_custo_json = {"valor_fat_map": 0.0}
 
         output_analyse = json.dumps(output_analyse)
         output_custo = json.dumps(output_custo)

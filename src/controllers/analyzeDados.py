@@ -8,8 +8,8 @@ from src.models.analyze.baixaHistoric_12m import baixa_Historic_12m
 from src.models.analyze.altaHistoric_12m import alta_Historic_12m
 from src.models.analyze.baixaHistoric_1m import baixa_Historic_1m
 from src.models.analyze.altaHistoric_1m import alta_Historic_1m
-from src.models.analyze.baixaHistoric_moly import baixa_Historic_MOLY
-from src.models.analyze.altaHistoric_moly import alta_Historic_MOLY
+from models.analyze.baixaHistoric_map import baixa_Historic_MOLY
+from models.analyze.altaHistoric_map import alta_Historic_MOLY
 from src.controllers.analyzeflag import flag
 import json
 
