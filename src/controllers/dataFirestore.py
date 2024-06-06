@@ -17,7 +17,7 @@ class FirestoreDatabase:
         self.collection_name = collection_name
 
     def firebase_init(self):
-        project_id = os.getenv("PROJECT_ID")
+        project_id = os.getenv("PROJECT_ID", "xperesidencial")
         if not project_id:
             raise ValueError("PROJECT_ID is required but not set in the environment.")
 
