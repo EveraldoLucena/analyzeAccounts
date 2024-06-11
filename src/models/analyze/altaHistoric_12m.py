@@ -328,29 +328,64 @@ def ML_custo(data_input):
 
 def alta_Historic_12m(json_energetico, json_custo, modalidade_tarifaria, tipo_contrato):
     print("Analise Historico de Alta:")
-    historic_energetico = json.loads(json_energetico)
-    historic_custo = json.loads(json_custo)
-    variation_json, mean_values_json = media_historica_energetico(historic_energetico)
-    variation_custo_json, mean_values_custo_json = media_historica_custo(historic_custo)
+    try:
+        historic_energetico = json.loads(json_energetico)
+        historic_custo = json.loads(json_custo)
+        variation_json, mean_values_json = media_historica_energetico(historic_energetico)
+        variation_custo_json, mean_values_custo_json = media_historica_custo(historic_custo)
 
-    match tipo_contrato:
-        case "CT":
-            print("CT")
-            output_analyse = CT_energetico(variation_json)
-            output_custo = CT_custo(variation_custo_json)
-            return (
-                output_analyse,
-                output_custo,
-                mean_values_json,
-                mean_values_custo_json,
-            )
-        case "ML":
-            print("ML")
-            output_analyse = ML_energetico(variation_json)
-            output_custo = ML_custo(variation_custo_json)
-            return (
-                output_analyse,
-                output_custo,
-                mean_values_json,
-                mean_values_custo_json,
-            )
+        match tipo_contrato:
+            case "CT":
+                print("CT")
+                output_analyse = CT_energetico(variation_json)
+                output_custo = CT_custo(variation_custo_json)
+                return (
+                    output_analyse,
+                    output_custo,
+                    mean_values_json,
+                    mean_values_custo_json,
+                )
+            case "ML":
+                print("ML")
+                output_analyse = ML_energetico(variation_json)
+                output_custo = ML_custo(variation_custo_json)
+                return (
+                    output_analyse,
+                    output_custo,
+                    mean_values_json,
+                    mean_values_custo_json,
+                )
+    except:
+        print("Sem Conta!")
+        output_analyse = {
+            "demanda_p_12m": 0.0,
+            "demanda_fp_12m": 0.0,
+            "consumo_p_12m": 0.0,
+            "consumo_fp_12m": 0.0,
+            "reativo_p_12m": 0.0,
+            "reativo_fp_12m": 0.0,
+            "reativo_exc_p_12m": 0.0,
+            "reativo_exc_fp_12m": 0.0,
+            "geracao_12m": 0.0,
+            "flag_hist_eletrica_12m": "green",
+        }
+        output_custo = {"valor_fat_12m": 0.0, "flag_hist_custo_12m": "green"}
+        mean_values_json = {
+            "demanda_p_12m": 0.0,
+            "demanda_fp_12m": 0.0,
+            "consumo_p_12m": 0.0,
+            "consumo_fp_12m": 0.0,
+            "reativo_p_12m": 0.0,
+            "reativo_fp_12m": 0.0,
+            "reativo_exc_p_12m": 0.0,
+            "reativo_exc_fp_12m": 0.0,
+            "geracao_12m": 0.0,
+        }
+        mean_values_custo_json = {"valor_fat_12m": 0.0}
+
+        output_analyse = json.dumps(output_analyse)
+        output_custo = json.dumps(output_custo)
+        mean_values_json = json.dumps(mean_values_json)
+        mean_values_custo_json = json.dumps(mean_values_custo_json)
+
+        return output_analyse, output_custo, mean_values_json, mean_values_custo_json

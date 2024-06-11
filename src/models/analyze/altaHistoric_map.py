@@ -9,10 +9,10 @@ def media_historica_energetico(data_input):
     yearago_account = json.loads(data_input[12]["12"]["account"])
 
     account_data = {
-        "demanda_p_map": yearago_account.get("demand", {}).get("np", 0),
-        "demanda_fp_map": yearago_account.get("demand", {}).get("fp", 0),
-        "consumo_p_map": yearago_account.get("cons", {}).get("np", 0),
-        "consumo_fp_map": yearago_account.get("cons", {}).get("fp", 0),
+        "demanda_p_map": yearago_account.get("demanda", {}).get("np", 0),
+        "demanda_fp_map": yearago_account.get("demanda", {}).get("fp", 0),
+        "consumo_p_map": yearago_account.get("consumo", {}).get("np", 0),
+        "consumo_fp_map": yearago_account.get("consumo", {}).get("fp", 0),
         "reativo_p_map": (
             yearago_account.get("reativo", {}).get("np", 0)
             if "reativo" in yearago_account
@@ -50,10 +50,10 @@ def media_historica_energetico(data_input):
 
     # Extracting the relevant data for the first account
     first_account_data = {
-        "demanda_p_map": first_account.get("demand", {}).get("np", 0),
-        "demanda_fp_map": first_account.get("demand", {}).get("fp", 0),
-        "consumo_p_map": first_account.get("cons", {}).get("np", 0),
-        "consumo_fp_map": first_account.get("cons", {}).get("fp", 0),
+        "demanda_p_map": first_account.get("demanda", {}).get("np", 0),
+        "demanda_fp_map": first_account.get("demanda", {}).get("fp", 0),
+        "consumo_p_map": first_account.get("consumo", {}).get("np", 0),
+        "consumo_fp_map": first_account.get("consumo", {}).get("fp", 0),
         "reativo_p_map": (
             first_account.get("reativo", {}).get("np", 0)
             if "reativo" in first_account

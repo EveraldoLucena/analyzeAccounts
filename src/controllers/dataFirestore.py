@@ -30,9 +30,8 @@ class FirestoreDatabase:
                 initialize_app(options={"projectId": project_id})
             else:
                 # Inicializa o Firebase para produção com credenciais padrão
-                cred = credentials.ApplicationDefault()
-                initialize_app(cred, {"projectId": project_id})
-
+                CREDENTIALS = credentials.ApplicationDefault()
+                firebase_admin.initialize_app(CREDENTIALS, {'projectId': project_id,})
         return firestore.client()
 
     def get_document(self, doc_id):
@@ -125,7 +124,7 @@ class FirestoreDatabase:
             print(f"\nError updating document {doc_id}: {str(e)}")
             return f"Error updating document {doc_id}: {str(e)}"
 
-    def update_moly(self, doc_id, result):
+    def update_map(self, doc_id, result):
         doc_ref = self.db.collection(self.collection_name).document(doc_id)
         try:
             # Envolve o resultado em um campo "Analyzes"

@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import numpy as np
 
+
 def leitura_baixa_energetico(input):
     data_input = input["data"]["read"]
     cons = data_input["leitura"]["cons"]
@@ -12,6 +13,7 @@ def leitura_baixa_energetico(input):
 
     output_json = json.dumps(output)
     return output_json
+
 
 def media_historica_energetico(data_input):
     print("\nMédia Histórica Energetico:")
@@ -94,12 +96,13 @@ def media_historica_energetico(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_json = json.dumps(variation_dict)
-    
+
     mean_values = mean_values.fillna(0)
     mean_values_dict = mean_values.to_dict()
     mean_values_json = json.dumps(mean_values_dict)
 
     return variation_json, mean_values_json
+
 
 def Convencional_energetico(data_input):
     print("\nHistorico Convencional Energetico")
@@ -119,6 +122,7 @@ def Convencional_energetico(data_input):
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
     return output_historic
+
 
 def Branca_energetico(data_input):
     print("Historico Branca Energetico")
@@ -153,6 +157,7 @@ def Branca_energetico(data_input):
     print(output_historic)
     return output_historic
 
+
 def GD_energetico(data_input):
     print("Historico GD")
     data = json.loads(data_input)
@@ -178,12 +183,11 @@ def GD_energetico(data_input):
         or (-75 <= data["geracao_12m"] <= -50)
     ):
         flag_historic = "yellow"
-    
+
     elif (
         (data["consumo_fp_12m"] <= -25)
         or (15 <= data["consumo_int_12m"] <= -25)
         or (15 <= data["consumo_p_12m"] <= -25)
-
     ):
         flag_historic = "yellow"
 
@@ -196,16 +200,16 @@ def GD_energetico(data_input):
     print(output_historic)
     return output_historic
 
+
 def leitura_baixa_custo(input):
     data_input = input["data"]["read"]
     total = data_input["detalh_fat"]["valor_final_faturado"]
 
-    output = {
-        "valor_fat": total
-    }
+    output = {"valor_fat": total}
 
     output_fat_json = json.dumps(output)
     return output_fat_json
+
 
 def media_historica_custo(data_input):
     print("\nMédia Histórica Custo:")
@@ -239,9 +243,7 @@ def media_historica_custo(data_input):
     first_account = json.loads(data_input[0]["0"]["account"])
 
     # Extracting the relevant data for the first account
-    first_account_data = {
-        "valor_fat_12m": first_account.get("total_fat", 0)
-    }
+    first_account_data = {"valor_fat_12m": first_account.get("total_fat", 0)}
 
     # Creating a DataFrame for the first account data
     df_first_account = pd.DataFrame([first_account_data])
@@ -254,25 +256,22 @@ def media_historica_custo(data_input):
     variation = variation.fillna(0)
     variation_dict = variation.to_dict()
     variation_custo_json = json.dumps(variation_dict)
-    
+
     mean_values = mean_values.fillna(0)
     mean_values_dict = mean_values.to_dict()
     mean_values_custo_json = json.dumps(mean_values_dict)
 
     return variation_custo_json, mean_values_custo_json
 
+
 def Convencional_custo(data_input):
     print("\nHistorico Convencional Custo:")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_12m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_12m"] <= 30:
         flag_historic = "yellow"
 
     else:
@@ -283,19 +282,16 @@ def Convencional_custo(data_input):
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
     return output_historic
+
 
 def Branca_custo(data_input):
     print("Historico Branca Custo")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_12m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_12m"] <= 30:
         flag_historic = "yellow"
 
     else:
@@ -306,19 +302,16 @@ def Branca_custo(data_input):
     output_historic = json.dumps(data, indent=4)
     print(output_historic)
     return output_historic
+
 
 def GD_custo(data_input):
     print("Historico GD Custo")
     data = json.loads(data_input)
 
-    if (
-        data["valor_fat_12m"] > 30
-    ):
+    if data["valor_fat_12m"] > 30:
         flag_historic = "red"
 
-    elif (
-        (15 <= data["valor_fat_12m"] <= 30)
-    ):
+    elif 15 <= data["valor_fat_12m"] <= 30:
         flag_historic = "yellow"
 
     else:
@@ -331,26 +324,79 @@ def GD_custo(data_input):
     return output_historic
 
 
-def baixa_Historic_12m(json_energetico, json_custo, modalidade_tarifaria, tipo_contrato):
+def baixa_Historic_12m(
+    json_energetico, json_custo, modalidade_tarifaria, tipo_contrato
+):
     print("Analise Historico de Baixa:")
-    historic_energetico = json.loads(json_energetico)
-    historic_custo = json.loads(json_custo)
-    variation_json, mean_values_json = media_historica_energetico(historic_energetico)
-    variation_custo_json, mean_values_custo_json = media_historica_custo(historic_custo)
+    try:
+        historic_energetico = json.loads(json_energetico)
+        historic_custo = json.loads(json_custo)
+        variation_json, mean_values_json = media_historica_energetico(
+            historic_energetico
+        )
+        variation_custo_json, mean_values_custo_json = media_historica_custo(
+            historic_custo
+        )
 
-    match modalidade_tarifaria:
-        case "CONVENCIONAL":
-            match tipo_contrato:
-                case "CT":
-                    output_analyse = Convencional_energetico(variation_json)
-                    output_custo = Convencional_custo(variation_custo_json)
-                    return output_analyse, output_custo, mean_values_json, mean_values_custo_json
-                case "GD":
-                    output_analyse = GD_energetico(variation_json)
-                    output_custo = GD_custo(variation_custo_json)
-                    return output_analyse, output_custo, mean_values_json, mean_values_custo_json
+        match modalidade_tarifaria:
+            case "CONVENCIONAL":
+                match tipo_contrato:
+                    case "CT":
+                        output_analyse = Convencional_energetico(variation_json)
+                        output_custo = Convencional_custo(variation_custo_json)
+                        return (
+                            output_analyse,
+                            output_custo,
+                            mean_values_json,
+                            mean_values_custo_json,
+                        )
+                    case "GD":
+                        output_analyse = GD_energetico(variation_json)
+                        output_custo = GD_custo(variation_custo_json)
+                        return (
+                            output_analyse,
+                            output_custo,
+                            mean_values_json,
+                            mean_values_custo_json,
+                        )
 
-        case "BRANCA":
-            output_analyse = Branca_energetico(variation_json)
-            output_custo = Branca_custo(variation_custo_json)
-            return output_analyse, output_custo, mean_values_json, mean_values_custo_json
+            case "BRANCA":
+                output_analyse = Branca_energetico(variation_json)
+                output_custo = Branca_custo(variation_custo_json)
+                return (
+                    output_analyse,
+                    output_custo,
+                    mean_values_json,
+                    mean_values_custo_json,
+                )
+
+    except:
+        print("Sem Conta!")
+        output_analyse = {
+            "consumo_p_12m": 0.0,
+            "consumo_int_12m": 0.0,
+            "consumo_fp_12m": 0.0,
+            "reativo_p_12m": 0.0,
+            "reativo_int_12m": 0.0,
+            "reativo_fp_12m": 0.0,
+            "geracao_12m": 0.0,
+            "flag_hist_eletrica_12m": "green",
+        }
+        output_custo = {"valor_fat_12m": 0.0, "flag_hist_custo_12m": "green"}
+        mean_values_json = {
+            "consumo_p_12m": 0.0,
+            "consumo_int_12m": 0.0,
+            "consumo_fp_12m": 0.0,
+            "reativo_p_12m": 0.0,
+            "reativo_int_12m": 0.0,
+            "reativo_fp_12m": 0.0,
+            "geracao_12m": 0.0,
+        }
+        mean_values_custo_json = {"valor_fat_12m": 0.0}
+
+        output_analyse = json.dumps(output_analyse)
+        output_custo = json.dumps(output_custo)
+        mean_values_json = json.dumps(mean_values_json)
+        mean_values_custo_json = json.dumps(mean_values_custo_json)
+
+        return output_analyse, output_custo, mean_values_json, mean_values_custo_json

@@ -8,8 +8,8 @@ from src.models.analyze.baixaHistoric_12m import baixa_Historic_12m
 from src.models.analyze.altaHistoric_12m import alta_Historic_12m
 from src.models.analyze.baixaHistoric_1m import baixa_Historic_1m
 from src.models.analyze.altaHistoric_1m import alta_Historic_1m
-from models.analyze.baixaHistoric_map import baixa_Historic_MOLY
-from models.analyze.altaHistoric_map import alta_Historic_MOLY
+from src.models.analyze.baixaHistoric_map import baixa_Historic_map
+from src.models.analyze.altaHistoric_map import alta_Historic_map
 from src.controllers.analyzeflag import flag
 import json
 
@@ -47,11 +47,11 @@ def getHistoric(
                 )
             )
             (
-                output_analyse_moly,
-                output_custo_moly,
-                mean_values_moly,
-                mean_values_custo_moly,
-            ) = baixa_Historic_MOLY(
+                output_analyse_map,
+                output_custo_map,
+                mean_values_map,
+                mean_values_custo_map,
+            ) = baixa_Historic_map(
                 json_energetico, json_custo, modalidade_tarifaria, tipo_contrato
             )
 
@@ -64,10 +64,10 @@ def getHistoric(
                 mean_values_custo_12m,
                 mean_values_1m,
                 mean_values_custo_1m,
-                output_analyse_moly,
-                output_custo_moly,
-                mean_values_moly,
-                mean_values_custo_moly,
+                output_analyse_map,
+                output_custo_map,
+                mean_values_map,
+                mean_values_custo_map,
             )
         case "A":
             (
@@ -84,11 +84,11 @@ def getHistoric(
                 )
             )
             (
-                output_analyse_moly,
-                output_custo_moly,
-                mean_values_moly,
-                mean_values_custo_moly,
-            ) = alta_Historic_MOLY(
+                output_analyse_map,
+                output_custo_map,
+                mean_values_map,
+                mean_values_custo_map,
+            ) = alta_Historic_map(
                 json_energetico, json_custo, modalidade_tarifaria, tipo_contrato
             )
 
@@ -101,10 +101,10 @@ def getHistoric(
                 mean_values_custo_12m,
                 mean_values_1m,
                 mean_values_custo_1m,
-                output_analyse_moly,
-                output_custo_moly,
-                mean_values_moly,
-                mean_values_custo_moly,
+                output_analyse_map,
+                output_custo_map,
+                mean_values_map,
+                mean_values_custo_map,
             )
 
 
