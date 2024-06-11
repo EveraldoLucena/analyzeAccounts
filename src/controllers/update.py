@@ -84,3 +84,13 @@ def updateDocument(
         pass
 
     return
+
+def updateAccount(
+    doc_id,
+    result_account
+):
+    print("\nSalvando Análise...")
+    result_account = json.loads(result_account)
+    db.update_analyzes_account(doc_id, result_account)
+
+    return

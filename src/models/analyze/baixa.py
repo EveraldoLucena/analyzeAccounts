@@ -109,7 +109,7 @@ def analyse_Convencional(input):
     else:
         cons_error = False
 
-    if data['total'] != data['total_fat'] and data['total_fat'] > 1.05 * data['total']:
+    if (data['total'] != data['total_fat'] and data['total_fat'] > 1.05 * data['total']):
         fat_error = True
     else:
         fat_error = False

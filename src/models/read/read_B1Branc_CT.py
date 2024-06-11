@@ -60,6 +60,7 @@ def B1Branc_CT(document_data):
     prod_cons_TE_np = func_produto(document_data, "Consumo TE kWh Ponta")
     prod_cons_TE_fp = func_produto(document_data, "Consumo TE kWh Fora Ponta")
     prod_cons_TE_inter = func_produto(document_data, "Consumo TE kWh Intermediário")
+    prod_reat_exc = func_produto(document_data, "Consumo Reativo Excedente kVARh")
     prod_ilum_pub = func_produto(
         document_data, "Contribuição Iluminação Pública")
     prod_icms_CDE = func_produto(document_data, "ICMS - Subvenção CDE")
@@ -174,7 +175,11 @@ def B1Branc_CT(document_data):
                     'consumo_te_fp': {
                         's_impost': prod_cons_TE_fp['tarifa_sem_impostos'],
                         'c_impost': prod_cons_TE_fp['tarifa_com_impostos']
-                    }
+                    },
+                    'reativo_exc': {
+                        's_impost':prod_reat_exc['tarifa_sem_impostos'],
+                        'c_impost': prod_reat_exc['tarifa_com_impostos']
+                    },
                 },
                 'detalh_fat': {
                     'consumo_tusd': {

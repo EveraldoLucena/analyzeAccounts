@@ -102,5 +102,5 @@ def getHistoricAnalyze(result, cod_inst, document_id):
             mean_values_custo_map,
         )
     except Exception as error:
-        print("An exception occurred:", error)
-        return {}
+        print("An exception occurred: Sem histórico!", error)
+        pass
